@@ -1,0 +1,47 @@
+\ProvidesPackage{dictionary}
+
+\RequirePackage{xspace}
+\RequirePackage{fancyhdr}
+\RequirePackage{extramarks}
+\RequirePackage{xparse}
+\RequirePackage{multicol}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\firstmark}
+\fancyhead[R]{\lastmark}
+\fancyfoot[C]{\thepage}
+
+\newcommand{\lettersection}[1]{%
+  \IfEq{\thelettersectioncount}{0}{}{%
+    \end{multicols*}%
+  }%
+  \chapter*{#1}%
+  \markboth{#1}{#1}%
+  \addcontentsline{toc}{chapter}{#1}%
+  \begin{multicols*}{2}%
+  \stepcounter{lettersectioncount}%
+}
+\newcounter{lettersectioncount}
+
+\NewDocumentEnvironment{entry}{mm}{%
+  \par\smallskip\noindent%
+  \extramarks{#1}{#1}%
+  #2%
+}{\par}
+
+\newcommand{\headword}[1]{\textbf{#1}\xspace}
+\newcommand{\pos}[1]{\textit{#1}\xspace}
+\newcommand{\definition}[1]{#1\xspace}
+\newcommand{\sensenumber}[1]{\textsuperscript{#1}\xspace}
+\newcommand{\example}[2]{\textbf{#1} --- '#2'\xspace}
+\newcommand{\variant}[2]{(#1 of \textit{#2})\xspace}
+\newcommand{\allomorph}[1]{(allomorph: \textit{#1})\xspace}
+\newcommand{\etymology}[1]{(from #1)\xspace}
+\newcommand{\subentry}[1]{%
+  \par\indent\textit{#1}\xspace%
+}
+
+\AtEndDocument{%
+  \end{multicols*}%
+}
