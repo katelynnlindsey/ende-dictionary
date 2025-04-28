@@ -1,8 +1,6 @@
 from bs4 import BeautifulSoup
 import re
 
-change
-
 # Load HTML content from .txt file
 with open('dictionary-configured-20250411.txt', 'r', encoding='utf-8') as f:
     html_content = f.read()
