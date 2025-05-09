@@ -19,6 +19,10 @@ def escape_latex(text):
 # Parse HTML
 soup = BeautifulSoup(html_content, 'html.parser')
 
+# Initialize LaTeX output
+latex = [
+]
+
 current_letter = None
 for div in soup.body.find_all('div', recursive=False):
     if div.get('class') == ['letHead']:
@@ -39,6 +43,11 @@ for div in soup.body.find_all('div', recursive=False):
                 pos = div.find('span', class_='partofspeech')
                 if pos:
                     entry_parts.append(f'\\pos{{{escape_latex(pos.get_text().strip())}}}')
+
+                etym = div.find('span', class_='etymology')
+                if etym:
+                    etym_text = etym.get_text().strip()
+                    entry_parts.append(f'\\etymology{{{escape_latex(etym_text)}}}')
 
                 senses = div.find_all('span', class_='sense')
                 for i, sense in enumerate(senses, 1):
@@ -68,11 +77,6 @@ for div in soup.body.find_all('div', recursive=False):
                     if allo_text_elem:
                         allo_text = allo_text_elem.get_text().strip()
                         entry_parts.append(f'\\allomorph{{{escape_latex(allo_text)}}}')
-
-                etym = div.find('span', class_='etymology')
-                if etym:
-                    etym_text = etym.get_text().strip()
-                    entry_parts.append(f'\\etymology{{{escape_latex(etym_text)}}}')
 
                 subentries = div.find_all('span', class_='subentry')
                 for sub in subentries:
