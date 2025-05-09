@@ -31,13 +31,13 @@
 }{\par}
 
 \newcommand{\headword}[1]{\textbf{#1}\xspace}
+\newcommand{\etymology}[1]{(from #1)\xspace}
 \newcommand{\pos}[1]{\textit{#1}\xspace}
 \newcommand{\definition}[1]{#1\xspace}
 \newcommand{\sensenumber}[1]{\textsuperscript{#1}\xspace}
 \newcommand{\example}[2]{\textbf{#1} --- '#2'\xspace}
 \newcommand{\variant}[2]{(#1 of \textit{#2})\xspace}
 \newcommand{\allomorph}[1]{(allomorph: \textit{#1})\xspace}
-\newcommand{\etymology}[1]{(from #1)\xspace}
 \newcommand{\subentry}[1]{%
   \par\indent\textit{#1}\xspace%
 }
