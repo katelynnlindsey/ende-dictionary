@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import re
 
 # Load HTML content from .txt file
-with open('dictionary-configured-20250411.txt', 'r', encoding='utf-8') as f:
+with open('dictionary-configured-20250509.txt', 'r', encoding='utf-8') as f:
     html_content = f.read()
 
 # Function to escape LaTeX special characters
@@ -63,7 +63,12 @@ for div in soup.body.find_all('div', recursive=False):
                     if sense_num:
                         entry_parts.append(f'\\sensenumber{{{sense_num.get_text().strip()}}}')
                     def_elem = sense.find('span', class_='definitionorgloss')
-                    def_text = def_elem.get_text().strip() if def_elem else "no definition provided"
+                    if def_elem:
+                    # Extract text from each child span and join with a space
+                        def_texts = [span.get_text().strip() for span in def_elem.find_all('span')]
+                        def_text = ' '.join(def_texts)
+                    else:
+                        def_text = "no definition provided"
                     entry_parts.append(f'\\definition{{{escape_latex(def_text)}}}')
 
                     examples = sense.find_all('span', class_='example')
