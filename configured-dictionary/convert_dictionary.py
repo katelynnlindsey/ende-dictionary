@@ -19,23 +19,6 @@ def escape_latex(text):
 # Parse HTML
 soup = BeautifulSoup(html_content, 'html.parser')
 
-# Initialize LaTeX output
-latex = [
-    r'\documentclass{book}',
-    r'\usepackage[utf8]{inputenc}',
-    r'\usepackage[T1]{fontenc}',
-    r'\usepackage{charis}',  # Replace with \usepackage{lmodern} if Charis SIL is unavailable
-    r'\usepackage{dictionary}',
-    r'\title{Agob-English Dictionary}',
-    r'\author{}',
-    r'\renewcommand{\cftchapfont}{\bfseries}',
-    r'\renewcommand{\cftdot}{}',
-    r'\begin{document}',
-    r'\maketitle',
-    r'\tableofcontents',
-    r'\newpage',
-]
-
 current_letter = None
 for div in soup.body.find_all('div', recursive=False):
     if div.get('class') == ['letHead']:
