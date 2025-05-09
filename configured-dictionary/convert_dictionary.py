@@ -89,7 +89,16 @@ for div in soup.body.find_all('div', recursive=False):
                         sub_pos = sub.find('span', class_='partofspeech')
                         if sub_pos:
                             sub_parts.append(f'\\pos{{{escape_latex(sub_pos.get_text().strip())}}}')
-                        sub_parts.append(f'\\definition{{{escape_latex(sub_def)}}}')
+                        sub_parts.append(f'\\definition{{{escape_latex(sub_def)}}}')   
+                        
+                        sub_examples = sub.find_all('span', class_='example')
+                        for ex in sub_examples:
+                            ex_text = ex.get_text().strip()
+                            trans = ex.find_next('span', class_='translation')
+                            if trans:
+                                trans_text = trans.get_text().strip()
+                                sub_parts.append(f'\\example{{{escape_latex(ex_text)}}}{{{escape_latex(trans_text)}}}')
+
                         entry_parts.append(f'\\subentry{{{''.join(sub_parts)}}}')
                     else:
                         print(f"Warning: Skipping subentry under '{headword}' due to missing headword or definition")
