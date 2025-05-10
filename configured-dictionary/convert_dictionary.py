@@ -44,10 +44,20 @@ for div in soup.body.find_all('div', recursive=False):
                 if pos:
                     entry_parts.append(f'\\pos{{{escape_latex(pos.get_text().strip())}}}')
 
-                etym = div.find('span', class_='etymology')
+                etym = div.find('span', class_='etymology')            
                 if etym:
-                    etym_text = etym.get_text().strip()
-                    entry_parts.append(f'\\etymology{{{escape_latex(etym_text)}}}')
+                    etym_prec_elem = etym.find('span', class_='preccomment')
+                    etym_name_elem = etym.find('span', class_='name')
+                    etym_form_elem = etym.find('span', class_='form')
+                    if etym_prec_elem and etym_name_elem and etym_form_elem:
+                        etym_prec = etym_prec_elem.get_text().strip()
+                        etym_name = etym_name_elem.get_text().strip()
+                        etym_form = etym_form_elem.get_text().strip()
+                        entry_parts.append(f'\\etymology{{{{escape_latex(etym_prec)}}{{escape_latex(etym_name)}}}}{{{escape_latex(etym_form)}}}')
+                    elif etym_prec_elem and etym_form_elem:
+                        etym_prec = etym_prec_elem.get_text().strip()
+                        etym_form = etym_form_elem.get_text().strip()
+                        entry_parts.append(f'\\etymology{{{escape_latex(etym_prec)}}}{{{escape_latex(etym_form)}}}')
 
                 senses = div.find_all('span', class_='sense')
                 for i, sense in enumerate(senses, 1):
