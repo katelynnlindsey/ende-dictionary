@@ -53,7 +53,7 @@ for div in soup.body.find_all('div', recursive=False):
                         etym_prec = etym_prec_elem.get_text().strip()
                         etym_name = etym_name_elem.get_text().strip()
                         etym_form = etym_form_elem.get_text().strip()
-                        entry_parts.append(f'\\etymology{{{{escape_latex(etym_prec)}}{{escape_latex(etym_name)}}}}{{{escape_latex(etym_form)}}}')
+                        entry_parts.append(f'\\etymology{{{escape_latex(etym_prec)}}}{{{escape_latex(etym_name)}}}{{{escape_latex(etym_form)}}}')
                     elif etym_prec_elem and etym_form_elem:
                         etym_prec = etym_prec_elem.get_text().strip()
                         etym_form = etym_form_elem.get_text().strip()
@@ -63,7 +63,7 @@ for div in soup.body.find_all('div', recursive=False):
                 for i, sense in enumerate(senses, 1):
                     sense_num = sense.find_previous('span', class_='sensenumber')
                     if sense_num:
-                        entry_parts.append(f'\\sensenumber{{{sense_num.get_text().strip()}}}')
+                        entry_parts.append(f'\\sensenumber{{{escape_latex(sense_num.get_text().strip())}}}')
                     def_elem = sense.find('span', class_='definitionorgloss')
                     if def_elem:
                     # Extract text from each child span and join with a space
