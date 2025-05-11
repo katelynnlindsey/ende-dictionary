@@ -135,8 +135,6 @@ for div in soup.body.find_all('div', recursive=False):
             else:
                 print(f"Warning: Skipping minorentryvariant for headword '{headword_text}' due to missing reverseabbr or referencedentry")
 
-latex.append(r'\end{document}')
-
 with open('dictionary.tex', 'w', encoding='utf-8') as f:
     f.write('\n'.join(latex))
 
