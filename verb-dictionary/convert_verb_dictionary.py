@@ -1,4 +1,3 @@
-@ -0,0 +1,120 @@
 import xml.etree.ElementTree as ET
 from collections import defaultdict
 import re
@@ -22,14 +21,16 @@ def extract_headword(entry):
     return ''
 
 def extract_analytic_plural(entry):
-    """Extract the analytic plural form from variant."""
+    """Extract all analytic plural forms from variants, joined by commas."""
     variants = entry.findall('variant')
+    plurals = []
     for variant in variants:
         env = variant.find("./trait[@name='environment'][@value='analytic plural']")
         if env is not None:
             form = variant.find("./form[@lang='kit']/text")
-            return clean_text(form.text) if form is not None and form.text else ''
-    return '[]'
+            if form is not None and form.text:
+                plurals.append(clean_text(form.text))
+    return ', '.join(plurals) if plurals else '[]'
 
 def extract_definition(entry):
     """Extract definition or gloss, concatenated with commas."""
@@ -56,6 +57,19 @@ def extract_verb_class(entry):
             return trait.get('value', 'Irregular')
     return 'Irregular'
 
+def extract_examples(entry):
+    """Extract example sentences and their translations."""
+    examples = entry.findall('sense/example')
+    example_list = []
+    for ex in examples:
+        sentence = ex.find("./form[@lang='kit']/text")
+        translation = ex.find("./translation[@type='Free translation']/form[@lang='en']/text")
+        sentence_text = clean_text(sentence.text) if sentence is not None and sentence.text else ''
+        trans_text = clean_text(translation.text) if translation is not None and translation.text else ''
+        if sentence_text and trans_text:  # Only include complete examples
+            example_list.append({'sentence': sentence_text, 'translation': trans_text})
+    return example_list
+
 def parse_lift_file(file_path):
     """Parse LIFT file and group entries by verb class."""
     tree = ET.parse(file_path)
@@ -68,11 +82,13 @@ def parse_lift_file(file_path):
             headword = extract_headword(entry)
             analytic_plural = extract_analytic_plural(entry)
             definition = extract_definition(entry)
+            examples = extract_examples(entry)
             if headword and definition:  # Only include entries with headword and definition
                 verb_groups[verb_class].append({
                     'headword': headword,
                     'analytic_plural': analytic_plural,
-                    'definition': definition
+                    'definition': definition,
+                    'examples': examples
                 })
     
     return verb_groups
@@ -105,13 +121,21 @@ def generate_latex(verb_groups, output_file):
                     f"\\apl{{{entry['analytic_plural']}}} "
                     f"\\defi{{{entry['definition']}}}\n"
                 )
+                if entry['examples']:
+                    latex_content += "\\begin{itemize}\n"
+                    for example in entry['examples']:
+                        latex_content += (
+                            f"\\item \\exsen{{{example['sentence']}}} "
+                            f"\\extran{{{example['translation']}}}\n"
+                        )
+                    latex_content += "\\end{itemize}\n"
             latex_content += "\\end{itemize}\n\n"
     
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(latex_content)
 
 def main():
-    input_file = 'dictionary-verb-20250511.lift'  # Replace with your LIFT file path
+    input_file = 'dictionary-verb-20250513.lift'  # Replace with your LIFT file path
     output_file = 'verb-dictionary.tex'  # Output LaTeX file
     verb_groups = parse_lift_file(input_file)
     generate_latex(verb_groups, output_file)
