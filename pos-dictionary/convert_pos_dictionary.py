@@ -97,7 +97,7 @@ def generate_latex_section(pos, entries):
         entry_text += "}"
         latex += f"\\item {entry_text}\n"
 
-    latex += "\\end{description}\n\n"
+    latex += "\\end{enumerate}\n\n"
     return latex
 
 # Function to generate the complete LaTeX document
