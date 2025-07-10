@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ldml>
+	<identity>
+		<version number="" />
+		<generation date="2025-05-18T02:33:28Z" />
+		<language type="kit" />
+	</identity>
+	<characters>
+		<exemplarCharacters>['\-D\u00B2\u00B3\u00B9\u01C3\u0F0B\u0F0C\u200C\u200D\u2070\u2074-\u2079\uA78B\uA78C]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[!]</exemplarCharacters>
+	</characters>
+	<layout>
+		<orientation>
+			<characterOrder>left-to-right</characterOrder>
+		</orientation>
+	</layout>
+	<collations>
+		<defaultCollation>standard</defaultCollation>
+		<collation type="standard">
+			<cr><![CDATA[&[before 1] [first regular] < A << a < Ä << ä < B << b < D << d < Dd << dd < E << e < G << g < H << h < I << i < Ɨ << ɨ < K << k < L << l < Ll << ll < M << m < N << n < Ng << ng < Ny << ny < O << o < P << p < R << r < S << s < T << t < Tt << tt < U << u < W << w < Y << y < Z << z < C << c < F << f < J << j < Q << q < V << v < X << x]]></cr>
+			<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+				<sil:simple><![CDATA[A a
+Ä ä
+B b
+D d
+Dd dd
+E e
+G g
+H h
+I i
+Ɨ ɨ
+K k
+L l
+Ll ll
+M m
+N n
+Ng ng
+Ny ny
+O o
+P p
+R r
+S s
+T t
+Tt tt
+U u
+W w
+Y y
+Z z
+C c
+F f
+J j
+Q q
+V v
+X x]]></sil:simple>
+			</special>
+		</collation>
+	</collations>
+	<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+		<sil:external-resources>
+			<sil:font name="Charis SIL" types="default" />
+		</sil:external-resources>
+	</special>
+</ldml>

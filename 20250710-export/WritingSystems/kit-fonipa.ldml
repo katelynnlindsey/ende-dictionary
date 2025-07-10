@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ldml>
+	<identity>
+		<version number="" />
+		<generation date="2025-07-10T18:12:57Z" />
+		<language type="kit" />
+		<variant type="fonipa" />
+	</identity>
+	<characters>
+		<exemplarCharacters>['\-D\u00B2\u00B3\u00B9\u01C3\u0F0B\u0F0C\u200C\u200D\u2070\u2074-\u2079\uA78B\uA78C]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[!]</exemplarCharacters>
+	</characters>
+	<layout>
+		<orientation>
+			<characterOrder>left-to-right</characterOrder>
+		</orientation>
+	</layout>
+	<collations>
+		<defaultCollation>standard</defaultCollation>
+		<collation type="standard" />
+	</collations>
+	<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+		<sil:external-resources>
+			<sil:font name="Charis SIL" types="default" />
+		</sil:external-resources>
+	</special>
+</ldml>

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ldml>
+	<identity>
+		<version number="" />
+		<generation date="2024-12-18T04:20:40Z" />
+		<language type="qaa" />
+		<variant type="x-Ende" />
+	</identity>
+	<layout>
+		<orientation>
+			<characterOrder>left-to-right</characterOrder>
+		</orientation>
+	</layout>
+	<collations>
+		<defaultCollation>standard</defaultCollation>
+		<collation type="standard">
+			<cr><![CDATA[&[before 1] [first regular] < A << a < Ä << ä < B << b < C << c < D << d < Dd << dd < E << e < F << f < G << g < H << h < I << i < Ɨ << ɨ < J << j < K << k < L << l < Ll << ll < M << m < N << n < Ng << ng < Ny << ny < O << o < P << p < Q << q < R << r < S << s < T << t < Tt << tt < U << u < V << v < W << w < X << x < Y << y < Z << z]]></cr>
+			<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+				<sil:simple><![CDATA[A a
+Ä ä
+B b
+C c
+D d
+Dd dd
+E e
+F f
+G g
+H h
+I i
+Ɨ ɨ
+J j
+K k
+L l
+Ll ll
+M m
+N n
+Ng ng
+Ny ny
+O o
+P p
+Q q
+R r
+S s
+T t
+Tt tt
+U u
+V v
+W w
+X x
+Y y
+Z z]]></sil:simple>
+			</special>
+		</collation>
+	</collations>
+	<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+		<sil:external-resources>
+			<sil:font name="Charis SIL" types="default" />
+		</sil:external-resources>
+	</special>
+</ldml>
