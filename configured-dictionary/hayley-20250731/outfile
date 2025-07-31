@@ -1,0 +1,331 @@
+\documentclass[10pt, b5paper, openany, includefoot]{book}
+%b5 = 182mm x 257mm = 18.2cm x 25.7cm = 7.17in x 10.12in
+\usepackage[utf8]{inputenc}
+\usepackage{fontspec}
+\usepackage{ifpdf}
+\usepackage[hmargin={2cm, 2cm}, vmargin={2cm, 1.5cm}]{geometry}
+\usepackage{tipa}
+%\usepackage[stretch=50,shrink=50]{microtype}
+
+
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{longtable}
+
+
+\usepackage[spanish,es-nolayout,es-tabla]{babel}
+
+\usepackage{array}
+\usepackage{caption}
+\usepackage[explicit]{titlesec}
+\usepackage{amssymb}
+
+\usepackage{graphicx}
+\usepackage{tipa}
+\usepackage{multirow}
+\usepackage{rotating}
+%\usepackage{natbib}
+\usepackage[authoryear,round]{natbib}
+
+\usepackage{gb4e}
+%\let\eachwordone=\it
+
+\usepackage{titlesec}
+\titlelabel{\thetitle.\quad}
+
+\usepackage{mathabx}
+
+\usepackage[defaultlines=2, all]{nowidow}
+
+\setlength{\columnsep}{0.15in}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
+\renewcommand{\sectionmark}[1]{ \markright{#1}{} }
+
+%\titleformat{\section}
+%{\vspace{0.5em}\bfseries\sffamily\large}
+%{\large{\thesection}}{1em}{{#1}}[\vspace{0.5em}]
+
+\newcommand{\gloss}{}
+%\newcommand{\gloss}[1]{\textit{\textsf{#1}}{}}
+
+\newcommand{\variantof}{}
+\newcommand{\definition}{}
+%\newcommand{\definition}[1]{\textbf{Definition:} \textit{#1}}
+\newcommand{\example}[1]{#1}
+\newcommand{\exsen}[1]{\textit{#1}}     % Iquito example sentence
+%\newcommand{\extran}[1]{\textenglish{#1}}
+\newcommand{\extran}{}
+\newcommand{\sense}{}
+\newcommand{\grammaticalinfo}{}
+
+\newcommand{\relform}{}
+\newcommand{\relforms}{}
+\newcommand{\discoursenote}{}
+
+\newcommand{\entry}[2]{\small\noindent\hangafter=1\hangindent=0.5em\markboth{#1}{#1}#2 \vskip .03in}
+
+\newcommand{\reventry}[2]{\small\noindent\hangafter=1\hangindent=0.5em\markboth{#1}{#1}\pagebreak[3]#2 \vskip .0in}
+
+\newcommand{\headword}[1]{\hspace{0pt}\textsf{\normalsize{#1}{}}}
+
+\newcommand{\exampleiqu}[1]{$\bullet$~\textsc{ejemplo} \textsf{#1}{}}
+%\newcommand{\exampleiqu}[1]{$\bullet$~\textsc{ejemplo} \textit{\textsf{#1}}{}}
+
+\newcommand{\exampleen}[1]{\textit{#1}{}}
+%\newcommand{\exampleen}[1]{{#1}{}}
+%\newcommand{\exampleen}[1]{\textsl{#1}{}}
+
+
+
+
+
+\newcommand{\irregpl}[1]{$\blacktriangleright$~\textsc{plural irreg.} \textsf{#1}{}}
+
+\newcommand{\irregplof}[1]{$\blacktriangleright$~\textsc{plural irreg.~de} \textsf{#1}{}}
+
+\newcommand{\lexeme}[1]{$\blacktriangleright\blacktriangleright$~ \textsc{raíz subyacente} \textsf{#1}{}}
+
+\newcommand{\derivroot}[1]{$\blacktriangleright$~\textsc{raíz deriv.} \textsf{#1}{}}
+%\newcommand{\impfrt}[1]{\textit{impf.rt.} \textbf{#1}{}}
+%\newcommand{\impfrtlab}{\textit{impf.rt.{ }}}
+
+\newcommand{\scientificname}[1]{$\blacktriangleright$~\textsc{nombre científico} \textit{#1}{}}
+
+\newcommand{\pos}[1]{\textsf{(#1)}}
+
+\newcommand{\litmean}[1]{$\blacktriangleright$~\textsc{literalmente} {#1}}
+
+\newcommand{\grammarnote}[1]{$\blacktriangleright$~\textsc{nota gramatical} {#1.}}
+
+\newcommand{\relformiqu}[1]{$\blacklozenge$ \textsc{palabra relacionada} \textsf{#1}{}}
+%\newcommand{\relformiqu}[1]{$\blacktriangleright$ \textsc{Palabra relacionada:} {#1.}{}}
+
+\newcommand{\relformiqurt}[1]{$\blacktriangleright$~\textsc{raíz subyacente} \textsf{#1}{}}
+
+\newcommand{\relformpos}[1]{\textsf{(#1)}}
+
+\newcommand{\relformen}[1]{{#1}}
+
+\newcommand{\relformeu}[1]{{#1}}
+
+\newcommand{\note}[1]{$\blacktriangleright$~\textsc{préstamo} {#1}{}}
+%\newcommand{\note}[1]{$\bullet$ {#1.}{}}
+
+\newcommand{\sci}[1]{\textit{#1}}
+
+\newcommand{\activemiddle}[1]{$\blacktriangleright$~\textsc{alternante act./med.} \textsf{#1}{}}
+
+\newcommand{\spa}[1]{\textsf{{#1}}}
+
+\newcommand{\spq}[1]{\textit{{#1}}}
+
+% CMB: \iqt is used one time, to make the formatting the same as it appears in the actual dictionary:
+\newcommand{\iqt}[1]{\textsf{#1}}
+
+\newcommand{\iqu}[1]{{\textsf{#1}}}
+%\newcommand{\iqu}[1]{\textit{\textsf{#1}}}
+
+\newcommand{\eng}[1]{\textit{#1}}
+
+\newcommand{\vartext}[1]{\textsf{#1}}
+
+\newcommand{\gramnoteentry}[1]{$\blacktriangleright$~\textsc{nota gramatical} {#1.}{}}
+
+\newcommand{\posspref}[1]{\textit{#1}.}
+
+\newcommand{\semnote}[1]{$\blacktriangleright$~\textsc{nota semántica} {#1.}{}}
+%\newcommand{\semnote}[1]{$\blacktriangleright$~\textsc{Nota semántica:} {#1.}{}}
+
+\newcommand{\semnoteentry}[1]{$\blacktriangleright$~\textsc{nota semántica} {#1.}{}}
+
+\newcommand{\anthronote}[1]{$\blacktriangleright$~\textsc{nota cultural} {#1.}{}}
+
+\newcommand{\anthnoteentry}[1]{$\blacktriangleright$~\textsc{nota cultural} {#1.}{}}
+
+\newcommand{\altpronuncnote}[1]{$\blacktriangleright$~\textsc{pronunciación alternativa} {#1:}{}}
+%\newcommand{\pronnote}[1]{\textit{fst.spch.} \textbf{#1}{}}
+
+\newcommand{\altpronunc}[1]{\textsf{#1}}
+
+\newcommand{\socionote}[1]{$\blacktriangleright$~\textsc{nota sociolingüística} {#1.}{}}
+
+\newcommand{\socionoteentry}[1]{$\blacktriangleright$~\textsc{nota sociolingüística} {#1.}{}}
+
+\newcommand{\irregposs}[1]{$\blacktriangleright$~\textsc{forma poseída irreg.} \textsf{#1}{}}
+
+\newcommand{\variants}[1]{{#1}{}}
+
+\newcommand{\rpos}[1]{\textsf{(#1)}}
+
+\newcommand{\sociovarlab}{$\blacktriangleright$~\textsc{var.~sociolingüística{ }}}
+
+\newcommand{\sociovarof}[1]{$\blacktriangleright$~\textsc{var.~sociolingüística de} \textsf{#1}{}}
+
+\newcommand{\irregpllab}{$\blacktriangleright$~\textsc{plural irreg.}{ }de{ }}
+
+\newcommand{\irregposspl}[1]{$\blacktriangleright$~\textsc{forma poseída plural irreg.} \textsf{#1}{}}
+%\newcommand{\irregposspl}{\textsc{Plural poseída irreg.}{ }de{ }}
+%\newcommand{\irregposspl}{\textsc{$\blacktriangleright$~plural poseída irreg.}{ }}
+
+\newcommand{\freevarlabs}{$\blacktriangleright$~\textsc{vars.~libres{ }}}
+
+\newcommand{\freevarlab}{$\blacktriangleright$~\textsc{var.~libre{ }}}
+
+\newcommand{\freevarof}[1]{$\blacktriangleright$~\textsc{var.~libre de} \textsf{#1}{}} 
+
+\newcommand{\dialectvarlab}{$\blacktriangleright$~\textsc{var.~dialectal{ }}}
+
+\newcommand{\dialectvarof}[1]{$\blacktriangleright$~\textsc{var.~dialectal de} \textsf{#1}{}} 
+
+\newcommand{\dialectvarlabs}{$\blacktriangleright$~\textsc{vars.~dialectales{ }}}
+
+\newcommand{\dialectlabNanay}{$\blacktriangleright$~\textsc{var.~nanaíno{ }}}
+
+\newcommand{\dialectofNanay}[1]{$\blacktriangleright$~\textsc{var.~nanaíno de} \textsf{#1}{}} 
+ 
+\newcommand{\dialectlabChambira}{$\blacktriangleright$~\textsc{var.~chambirino{ }}}    
+
+\newcommand{\dialectofChambira}[1]{$\blacktriangleright$~\textsc{var.~chambirino de} \textsf{#1}{}}
+
+\newcommand{\dialectlabMaasikuuri}{$\blacktriangleright$~\textsc{var.~maasikuuri{ }}}   \newcommand{\pronnote}[1]{/#1/}
+
+                 % you can customize more
+
+
+\newcommand{\dialectofMaasikuuri}[1]{$\blacktriangleright$~\textsc{var.~maasikuuri de} \textsf{#1}{}}
+
+%\newcommand{\dialectlabInkawɨɨ́raana}{$\blacktriangleright$~\textsc{var.~inkaw}ɨ́ɨ́\textsc{rààna{ }}}    
+%\newcommand{\dialectlabInkawɨɨ́raana}{$\blacktriangleright$~\textsc{var.~inkawɨ́ɨ́rààna{ }}}    
+
+%\newcommand{\dialectofInkawɨɨ́raana}[1]{$\blacktriangleright$~\textsc{var.~inkaw}ɨ́ɨ́\textsc{rààna de} \textsf{#1}{}}
+%\newcommand{\dialectofInkawɨɨ́raana}[1]{$\blacktriangleright$~\textsc{var.~inkawɨ́ɨ́rààna de} \textsf{#1}{}}
+
+%\newcommand{\dialectlabMajanakáani}{$\blacktriangleright$~\textsc{var.~máájànàkáànì{ }}} 
+
+%\newcommand{\dialectofMajanakáani}[1]{$\blacktriangleright$~\textsc{var.~máájànàkáànì de} \textsf{#1}{}}
+       % or any formatting you want
+
+
+
+\newcommand{\persvarlabJPI}{$\blacktriangleright$~\textsc{var.~de~JPI{ }}} 
+
+\newcommand{\persvarofJPI}[1]{$\blacktriangleright$~\textsc{var.~de~JPI~de} \textsf{#1}{}}
+
+\newcommand{\persvarlabELY}{$\blacktriangleright$~\textsc{var.~de~ELY{ }}} 
+
+\newcommand{\persvarofELY}[1]{$\blacktriangleright$~\textsc{var.~de~ELY~de} \textsf{#1}{}}
+\newcommand{\Fast}{\textsc{Fast}}
+\newcommand{\Unspecified}{\textsc{Unspecified}}
+
+\newcommand{\persvarlabHDC}{$\blacktriangleright$~\textsc{var.~de~HDC{ }}} 
+
+\newcommand{\persvarofHDC}[1]{$\blacktriangleright$~\textsc{var.~de~HDC~de} \textsf{#1}{}}
+
+\newcommand{\persvarlabunk}{$\blacktriangleright$~\textsc{var.~personal{ }}}
+ 
+\newcommand{\persvarofunk}[1]{$\blacktriangleright$~\textsc{var.~personal} \textsf{#1}{}}
+
+\newcommand{\constructvarlab}{$\blacktriangleright$~\textsc{var.~construccional{ }}}
+
+\newcommand{\constructvarof}[1]{$\blacktriangleright$~\textsc{var.~construccional~de} \textsf{#1}{}}
+
+\newcommand{\archvarlab}{$\blacktriangleright$~\textsc{var.~arcaica{ }}}
+
+\newcommand{\archvarof}[1]{$\blacktriangleright$~\textsc{var.~arcaica~de} \textsf{#1}{}}
+
+\newcommand{\prepausallab}{$\blacktriangleright$~\textsc{forma prepausal{ }}}
+ 
+\newcommand{\prepausalof}[1]{$\blacktriangleright$~\textsc{var.~prepausal~de} \textsf{#1}{}}
+ 
+\newcommand{\affectvarlab}{$\blacktriangleright$~\textsc{var.~afectiva{ }}} 
+
+\newcommand{\affectvarof}[1]{$\blacktriangleright$~\textsc{var.~afectiva~de} \textsf{#1}{}}
+
+\newcommand{\euphvarlab}{$\blacktriangleright$~\textsc{var.~eufemística{ }}} 
+
+\newcommand{\euphvarof}[1]{$\blacktriangleright$~\textsc{var.~eufemística~de} \textsf{#1}{}}
+
+\newcommand{\playvarlab}{$\blacktriangleright$~\textsc{var.~bromista{ }}} 
+ 
+\newcommand{\playvarof}[1]{$\blacktriangleright$~\textsc{var.~bromista~de} \textsf{#1}{}}
+  
+\newcommand{\nicknamelab}{$\blacktriangleright$~\textsc{apodo~}} 
+
+\newcommand{\nicknameof}[1]{$\blacktriangleright$~\textsc{apodo de} \textsf{#1}{}}
+ 
+\newcommand{\quantvarlab}{$\blacktriangleright$~\textsc{var. cuantitativa~}}
+
+\newcommand{\quantvarof}[1]{$\blacktriangleright$~\textsc{var.~cuantitativa~de} \textsf{#1}{}} 
+ 
+\newcommand{\irregthirdposs}[1]{$\blacktriangleright$~\textsc{forma poseída de tercera persona irreg.} \textsf{#1}{}} 
+%\newcommand{\irregthirdposs}[1]{\textit{3.poss.} \textbf{#1}{}}
+%\newcommand{\irregthirdposs}{\textsc{Forma poseída de tercera persona irreg.}{ }}
+
+ \newcommand{\irregfirstposs}[1]{$\blacktriangleright$~\textit{forma poseída de primera persona irreg.} \textbf{#1}{}}
+
+\newcommand{\allomorphlab}{$\blacktriangleright$~\textsc{allomorfo(s)~}} 
+
+\newcommand{\allomorphof}[1]{$\blacktriangleright$~\textsc{alomorfo~de} \textsf{#1}{}}  
+ 
+\titleformat{\chapter}[display]
+{\bfseries\sffamily\LARGE}
+{}{-4ex}{#1} 
+
+\titleformat{\section}
+{\vspace{0.5em}\bfseries\sffamily\large}
+{\large{\thesection}}{1em}{{#1}}[\vspace{0.5em}]
+
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\textsf{\rightmark}}
+\rhead{\textsf{\leftmark}}
+\chead{}
+%\lfoot{}
+\cfoot{}
+%\rfoot{}
+\fancyfoot[RO]{{\textit{Dictionary Ende{\textendash}English}} \qquad \textpipe \qquad {\small{\thepage}}\\}
+\fancyfoot[LE]{{\small{\thepage}} \qquad \textpipe \qquad  \textit{Dictionary Ende{\textendash}English}\\}
+
+\fancypagestyle{plain}{
+\fancyhf{}% clears all header and footer fields
+\renewcommand{\headrulewidth}{0pt}
+%\lhead{\textbf{\rightmark}}
+%\rhead{\textbf{\leftmark}}
+%\chead{}
+%\lfoot{}
+\cfoot{}
+%\rfoot{}
+\fancyfoot[RO]{{\textit{dictionary Ende–English}} \qquad \textpipe \qquad {\small{\thepage}}\\}
+\fancyfoot[LE]{{\small{\thepage}} \qquad \textpipe \qquad  \textit{Ende to English}\\}  
+}
+
+%THINGS to find-replace and hand-edit
+% p.~ej. > p.~ej.
+% conj. > subord.
+% ~$\parallel$~ } >>> }
+% (medio) >>> } \textsc{(med.)
+%} (activo) >>> } \textsc{(act.)
+% comment out "extra" k=, kw=, p=, pɨ=
+% merge U and UU
+
+\begin{document}
+
+\setcounter{page}{1}
+
+%\newpage
+%\thispagestyle{plain}
+%\mbox{}
+%\newpage
+
+\part*{{dictionary\\ Ende–English}}
+
+
+\twocolumn[]
+\raggedright
+
+\setnoclub
+\setnowidow

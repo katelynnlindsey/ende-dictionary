@@ -1,0 +1,218 @@
+\documentclass[10pt, b5paper, openany, includefoot]{book}
+%b5 = 182mm x 257mm = 18.2cm x 25.7cm = 7.17in x 10.12in
+\usepackage[utf8]{inputenc}
+\usepackage{fontspec}
+\usepackage{ifpdf}
+\usepackage[hmargin={2cm, 2cm}, vmargin={2cm, 1.5cm}]{geometry}
+\usepackage{tipa}
+%\usepackage[stretch=50,shrink=50]{microtype}
+
+
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{longtable}
+
+\usepackage{array}
+\usepackage{caption}
+\usepackage[explicit]{titlesec}
+\usepackage{amssymb}
+
+\usepackage{graphicx}
+\usepackage{tipa}
+\usepackage{multirow}
+\usepackage{rotating}
+%\usepackage{natbib}
+\usepackage[authoryear,round]{natbib}
+
+\usepackage{gb4e}
+%\let\eachwordone=\it
+
+\usepackage{titlesec}
+\titlelabel{\thetitle.\quad}
+
+\usepackage{mathabx}
+
+\usepackage[defaultlines=2, all]{nowidow}
+
+\setlength{\columnsep}{0.15in}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
+\renewcommand{\sectionmark}[1]{ \markright{#1}{} }
+
+%\titleformat{\section}
+%{\vspace{0.5em}\bfseries\sffamily\large}
+%{\large{\thesection}}{1em}{{#1}}[\vspace{0.5em}]
+
+\newcommand{\gloss}{}
+%\newcommand{\gloss}[1]{\textit{\textsf{#1}}{}}
+
+\newcommand{\variantof}{}
+\newcommand{\definition}[1]{\textit{#1}}
+\newcommand{\example}[1]{#1}
+\newcommand{\exsen}[1]{\textit{#1}}
+\newcommand{\extran}[1]{`#1'}
+\newcommand{\sense}{}
+\newcommand{\grammaticalinfo}{}
+
+\newcommand{\relform}{}
+\newcommand{\relforms}{}
+\newcommand{\discoursenote}{}
+
+\newcommand{\entry}[2]{\small\noindent\hangafter=1\hangindent=0.5em\markboth{#1}{#1}#2 \vskip .03in}
+
+\newcommand{\reventry}[2]{\small\noindent\hangafter=1\hangindent=0.5em\markboth{#1}{#1}\pagebreak[3]#2 \vskip .0in}
+
+\newcommand{\headword}[1]{\hspace{0pt}\textsf{\normalsize{#1}{}}}
+
+\newcommand{\pronnote}[1]{[#1]}
+
+\newcommand{\irregpl}[1]{$\blacktriangleright$~\textsc{plural irreg.} \textsf{#1}{}}
+
+\newcommand{\irregplof}[1]{$\blacktriangleright$~\textsc{plural irreg.~de} \textsf{#1}{}}
+
+\newcommand{\lexeme}[1]{$\blacktriangleright\blacktriangleright$~ \textsc{raíz subyacente} \textsf{#1}{}}
+
+\newcommand{\derivroot}[1]{$\blacktriangleright$~\textsc{raíz deriv.} \textsf{#1}{}}
+%\newcommand{\impfrt}[1]{\textit{impf.rt.} \textbf{#1}{}}
+%\newcommand{\impfrtlab}{\textit{impf.rt.{ }}}
+
+\newcommand{\scientificname}[1]{$\blacktriangleright$~\textsc{Scientific name} \textit{#1}{}}
+
+\newcommand{\pos}[1]{\textsf{(#1)}}
+
+\newcommand{\litmean}[1]{$\blacktriangleright$~\textsc{Lit.} {#1}}
+
+\newcommand{\grammarnote}[1]{$\blacktriangleright$~\textsc{Grammatical note} {#1.}}
+
+\newcommand{\relformpos}[1]{\textsf{(#1)}}
+
+\newcommand{\relformen}[1]{{#1}}
+
+\newcommand{\relformeu}[1]{{#1}}
+
+\newcommand{\note}[1]{$\blacktriangleright$~\textsc{Note} {#1}{}}
+%\newcommand{\note}[1]{$\bullet$ {#1.}{}}
+
+\newcommand{\sci}[1]{\textit{#1}}
+
+\newcommand{\spa}[1]{\textsf{{#1}}}
+
+\newcommand{\spq}[1]{\textit{{#1}}}
+
+% CMB: \iqt is used one time, to make the formatting the same as it appears in the actual dictionary:
+\newcommand{\iqt}[1]{\textsf{#1}}
+
+\newcommand{\iqu}[1]{{\textsf{#1}}}
+%\newcommand{\iqu}[1]{\textit{\textsf{#1}}}
+
+\newcommand{\eng}[1]{\textit{#1}}
+
+\newcommand{\vartext}[1]{\textsf{#1}}
+
+\newcommand{\gramnoteentry}[1]{$\blacktriangleright$~\textsc{nota gramatical} {#1.}{}}
+
+\newcommand{\posspref}[1]{\textit{#1}.}
+
+\newcommand{\semnote}[1]{$\blacktriangleright$~\textsc{Semantic note} {#1.}{}}
+%\newcommand{\semnote}[1]{$\blacktriangleright$~\textsc{Nota semántica:} {#1.}{}}
+
+\newcommand{\semnoteentry}[1]{$\blacktriangleright$~\textsc{Semantic note} {#1.}{}}
+
+\newcommand{\anthronote}[1]{$\blacktriangleright$~\textsc{Cultural note} {#1.}{}}
+
+\newcommand{\anthnoteentry}[1]{$\blacktriangleright$~\textsc{Cultural note} {#1.}{}}
+
+\newcommand{\altpronuncnote}[1]{$\blacktriangleright$~\textsc{Alternative pronunciation} {#1:}{}}
+%\newcommand{\pronnote}[1]{\textit{fst.spch.} \textbf{#1}{}}
+
+\newcommand{\altpronunc}[1]{\textsf{#1}}
+
+\newcommand{\socionote}[1]{$\blacktriangleright$~\textsc{Sociolinguistic note} {#1.}{}}
+
+\newcommand{\socionoteentry}[1]{$\blacktriangleright$~\textsc{Sociolinguistic note} {#1.}{}}
+
+\newcommand{\variants}[1]{{#1}{}}
+
+\newcommand{\rpos}[1]{\textsf{(#1)}}
+
+\newcommand{\Spellingvariant}{$\blacktriangleright$~\textsc{spelling var.{ }}}
+\newcommand{\FastSpeechvariant}{$\blacktriangleright$~\textsc{fast speech var.{ }}}
+\newcommand{\Inflectedform}{$\blacktriangleright$~\textsc{inflected form{ }}}
+\newcommand{\Unspecifiedvariant}{$\blacktriangleright$~\textsc{var.{ }}}
+\newcommand{\Dialectalvariant}{$\blacktriangleright$~\textsc{dial. var.{ }}}
+\newcommand{\Derivedvariant}{$\blacktriangleright$~\textsc{der. from{ }}}
+\newcommand{\Infinitivalreduplicant}{$\blacktriangleright$~\textsc{inf. reduplicant{ }}}
+\newcommand{\Pluralreduplicant}{$\blacktriangleright$~\textsc{pl. reduplicant{ }}}
+\newcommand{\Derivationalreduplicant}{$\blacktriangleright$~\textsc{der. reduplicant{ }}}
+\newcommand{\BabyTalkvariant}{$\blacktriangleright$~\textsc{baby talk var.{ }}}
+\newcommand{\Freevariant}{$\blacktriangleright$~\textsc{free var.{ }}}
+
+\newcommand{\freevarof}[1]{$\blacktriangleright$~\textsc{var.~libre de} \textsf{#1}{}} 
+
+\newcommand{\dialectvarof}[1]{$\blacktriangleright$~\textsc{var.~dialectal de} \textsf{#1}{}}
+
+\newcommand{\allomorphlab}{$\blacktriangleright$~\textsc{allomorfo(s)~}} 
+
+\newcommand{\allomorphof}[1]{$\blacktriangleright$~\textsc{alomorfo~de} \textsf{#1}{}}  
+ 
+\titleformat{\chapter}[display]
+{\bfseries\sffamily\LARGE}
+{}{-4ex}{#1} 
+
+\titleformat{\section}
+{\vspace{0.5em}\bfseries\sffamily\large}
+{\large{\thesection}}{1em}{{#1}}[\vspace{0.5em}]
+
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\textsf{\rightmark}}
+\rhead{\textsf{\leftmark}}
+\chead{}
+%\lfoot{}
+\cfoot{}
+%\rfoot{}
+\fancyfoot[RO]{{\textit{Dictionary Ende{\textendash}English}} \qquad \textpipe \qquad {\small{\thepage}}\\}
+\fancyfoot[LE]{{\small{\thepage}} \qquad \textpipe \qquad  \textit{Dictionary Ende{\textendash}English}\\}
+
+\fancypagestyle{plain}{
+\fancyhf{}% clears all header and footer fields
+\renewcommand{\headrulewidth}{0pt}
+%\lhead{\textbf{\rightmark}}
+%\rhead{\textbf{\leftmark}}
+%\chead{}
+%\lfoot{}
+\cfoot{}
+%\rfoot{}
+\fancyfoot[RO]{{\textit{dictionary Ende–English}} \qquad \textpipe \qquad {\small{\thepage}}\\}
+\fancyfoot[LE]{{\small{\thepage}} \qquad \textpipe \qquad  \textit{Ende to English}\\}  
+}
+
+%THINGS to find-replace and hand-edit
+% p.~ej. > p.~ej.
+% conj. > subord.
+% ~$\parallel$~ } >>> }
+% (medio) >>> } \textsc{(med.)
+%} (activo) >>> } \textsc{(act.)
+% comment out "extra" k=, kw=, p=, pɨ=
+% merge U and UU
+
+\begin{document}
+
+\setcounter{page}{1}
+
+%\newpage
+%\thispagestyle{plain}
+%\mbox{}
+%\newpage
+
+\part*{{dictionary\\ Ende–English}}
+
+
+\twocolumn[]
+\raggedright
+
+\setnoclub
+\setnowidow
