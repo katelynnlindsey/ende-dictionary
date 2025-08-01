@@ -14,32 +14,45 @@ glossmap = {
 }
 
 posmap_en = {
-    'adjective': 'adj.',
-    'adverb': 'adv.',
-    'ambitransitive verb': 'a.v.',
-    'interjection': 'interj.',
-    'intransitive verb': 'i.v.',
-    'locative noun': 'loc.n.',
-    'locative postposition': 'loc.postp.',
-    'noun': 'n.',
-    'postposition': 'postp.',
-    'proper noun': 'prop.n.',
-    'transitive verb': 't.v.',
-    'anaphoric pronoun' : 'anaph.pro.',
-    'complementizer' : 'comp.',
-    'conjunction' : 'conj.',               
-    'copular verb' : 'cop.',
-    'demonstrative' : 'dem.',
-    'determiner' : 'det.',                         
-    'ditransitive verb' : 'd.v.',                                                                 
-    'interrogative word' : 'interrog.',   
-    'locative demonstrative' : 'loc.dem', 
-    'locative postposition' : 'loc.postp.',                                         
-    'numeral' : 'num.',
-    'particle' : 'prtcl.',                                                     
-    'pronoun' : 'pro.',
-    'pro-clause' : 'procl.',
-    'relative pronoun' : 'rel.pro.', 
+    'Adjective': 'adj.',
+    'Adverb': 'adv.',
+    'Ambitransitive verb': 'a.v.',
+    'Interjection': 'interj.',
+    'Intransitive verb': 'i.v.',
+    'Locational': 'loc.n.',
+    'Locative postposition': 'loc.postp.',
+    'Noun': 'n.',
+    'Postposition': 'postp.',
+    'Proper noun': 'prop.n.',
+    'Transitive verb': 't.v.',
+    'Anaphoric pronoun' : 'anaph.pro.',
+    'Complementizer' : 'comp.',
+    'Conjunction' : 'conj.',               
+    'Demonstrative' : 'dem.',
+    'Manner demonstrative' : 'man.dem.',
+    'Determiner' : 'det.',                         
+    'Ditransitive verb' : 'd.v.',                                                                 
+    'Interrogative word' : 'interrog.',   
+    'Locative demonstrative' : 'loc.dem', 
+    'Locative postposition' : 'loc.postp.',                                         
+    'Numeral' : 'num.',
+    'Particle' : 'prtcl.',                                                     
+    'Pronoun' : 'pro.',
+    'Pro-clause' : 'procl.',
+    'Relative pronoun' : 'rel.pro.',
+    'Proper noun' : 'prop.n.',
+    'Pronominal enclitic' : 'pro.enc.',
+    'Modifier' : 'mod.',
+    'Verb' : 'v.',
+    'Subordinating connective' : 'sub.con.',
+    'Clitic':'clt.',
+    'Nominal enclitic':'nom.clt.',
+    'Copular verb':'cop.',
+    'Interrogative pronoun':'int.pro.',
+    'Manner adverb':'man.adv.',
+    'Discourse particle':'disc.prtcl.',
+    'Auxiliary verb':'aux.',
+    'Quantifier':'quant.',
 }
 
 verb_pos = [
@@ -164,7 +177,7 @@ def nodetext(node):
 def superscriptLH(s):
     '''Replace L/H with tex superscript form.'''
     return s.replace('L', '\\textsuperscript{L}') \
-            .replace('H', '\\textsuperscript{H}')
+            .replace('H', '\\textsuperscript{H}') 
 
 def activemiddle_replace_es(s):
     '''Translate activemiddle field to Spanish.'''
@@ -319,14 +332,12 @@ def glosses2tex(glosses):
 #             tex += '\n' + r'    \item{\gloss{' + gloss + '}}'
 #         else:
 #             tex += '\n' + r'    \item{\gloss{' + gloss + '}}'
-#     return (tex + r'\n  \end{itemize}')
+#     return (tex + '\n' + r' \end{itemize}')
       return ''
+
 def senses2tex(entry, sense_pos, letter):
-    
-    '''Return senses in latex format.'''
     tex = ''
     senses = entry.findall('sense')
-    
     for idx, s in enumerate(senses):
         tex += '  \\sense{'
         if len(senses) > 1:
@@ -335,13 +346,11 @@ def senses2tex(entry, sense_pos, letter):
         if sense_pos is True:
             tex += sense_pos2tex(s)
         try:
-            
             definitions = s.findall('definition/form[@lang="en"]/text')
-            
             for definition in definitions:                
                 defn =  ''.join(definition.itertext()).strip()
                 tex += '    \\definition{' + defn + '}'
-                add_wc(defn, letter)  # Add wordcounts
+                add_wc(defn, letter)
         except (AttributeError, TypeError):
             pass
         tex += simplefield2tex(
@@ -350,20 +359,6 @@ def senses2tex(entry, sense_pos, letter):
             'field[@type="scientific-name"]/form[@lang="en"]/text',
             level=2
         )
-        #The note entry is now added after the literal meaning.
-        note = simplefield2tex(
-           entry,
-           'note',
-           'note/form[@lang="en"]/text',
-           level=2
-        )
-        # if note != '' and idx >= 2:
-        #    print(
-        #        'WARNING: entry for {:}) has multiple <senses> and a single <note>'.format(
-        #            get_headword(entry)
-        #        )
-        #    )
-        tex += note
         tex += simplefield2tex(
             s,
             'anthronote',
@@ -411,7 +406,7 @@ def senses2tex_es(entry, sense_pos, letter):
         if sense_pos is True:
             tex += sense_pos2tex(s, lang="es")
         try:
-            definitions = s.findall('definition/form[@lang="eu"]/text')
+            definitions = s.findall('definition/form[@lang="kit"]/text')
             for definition in definitions:
                 defn =  ''.join(definition.itertext()).strip()
                 tex += '    \\definition{' + defn + '}'
@@ -619,7 +614,7 @@ def entry2dict_de(entry, variantmap, mainwdmap, irreg_pl_map):
     '''
     headword = get_headword(entry)
     tex = r'\entry{' + headword + '}{'
-    tex += r'\n\headword{' + headword + '}'
+    tex += '\n' + r'\headword{' + headword + '}'
     tex += pos2tex(entry, lang='kit')
     glosses = entry.findall('sense/gloss[@lang="ga"]/text')
     irreg_pl = get_irreg_pl(glosses)
@@ -719,26 +714,18 @@ def reventry2dict_de(rev, e):
 #        return ({'firstletter': '', 'headword': '', 'sortword': '', 'tex': ''}, e)
 
 def entry2dict_acad(entry, variantmap, mainwdmap, irreg_pl_map, impf_rt_map):
-    
-    '''
-    Return contents of <entry> node as a dict with useful values
-    for academic dictionary.
-    '''
     headword = get_headword(entry)
     letter = firstletter(headword).upper()
     tex = '\n' + r'\entry{' + headword + '}{'
     tex += r'\headword{' + headword + '}'
     tex += lexeme2tex(entry)
     try:
-        tex += r'\n  \impfrt{\impfrtlab ' + impf_rt_map[entry.attrib['id']] + '}'
+        tex += '\n' + r'  \impfrt{\impfrtlab ' + impf_rt_map[entry.attrib['id']] + '}'
     except KeyError:
         pass
     glosses = entry.findall('sense/gloss[@lang="ga"]/text')
-    #irreg_pl = get_irreg_pl(glosses)
     try:
-        #tex += '\n' + r'  \variants{\irregpllab \vartext{' + irreg_pl_map[headword] + '}}'
         pass
-    #except KeyError:
     finally:
         isvariant = False
         try:
@@ -751,10 +738,7 @@ def entry2dict_acad(entry, variantmap, mainwdmap, irreg_pl_map, impf_rt_map):
                 entry, 'irregpl', 'field[@type="Irreg Pl"]/form/text', level=1
             )
             tex += simplefield2tex(
-                entry,
-                'irregposs',
-                'field[@type="Irreg Poss"]/form/text',
-                level=1
+                entry, 'irregposs', 'field[@type="Irreg Poss"]/form/text', level=1
             )
             for irform in ['irregthirdposs', 'irregfirstposs']:
                 try:
@@ -774,13 +758,9 @@ def entry2dict_acad(entry, variantmap, mainwdmap, irreg_pl_map, impf_rt_map):
                 entry, 'litmean', 'field[@type="literal-meaning"]/form[@lang="en"]/text', level=1, letter=letter
             )
             tex += simplefield2tex(
-                entry, 'note', 'note/form[@lang="en"]/text', level=1
-            )
-            tex += simplefield2tex(
                 entry, 'pronnote', 'pronunciation/form/text', level=1
             )
             if isvariant is False:
-                
                 if get_first_pos(entry) in verb_pos:
                     tex += senses2tex(entry, sense_pos=True, letter=letter)
                 else:
@@ -788,7 +768,6 @@ def entry2dict_acad(entry, variantmap, mainwdmap, irreg_pl_map, impf_rt_map):
                     tex += senses2tex(entry, sense_pos=False, letter=letter)
                 print(tex)
             else:
-                
                 s = entry.find('sense')
                 if s is not None:
                     tex += simplefield2tex(
@@ -827,7 +806,6 @@ def entry2dict_acad(entry, variantmap, mainwdmap, irreg_pl_map, impf_rt_map):
                         'note[@type="discourse"]/form[@lang="en"]/text',
                         level=2, letter=letter
                     )
-                    #tex += examples2tex(s)
             tex += simplefield2tex(
                 entry,
                 'activemiddle',
@@ -841,8 +819,7 @@ def entry2dict_acad(entry, variantmap, mainwdmap, irreg_pl_map, impf_rt_map):
                         continue
                     variants = [
                         v.strip() \
-                        for v in variantmap[entry.attrib['id']][vartype] #\
-                        #if v.strip() not in irreg_pl
+                        for v in variantmap[entry.attrib['id']][vartype]
                     ]
                     if len(variants) > 0:
                         if len(variants) > 1 and vartype in ['freevarlab', 'dialectvarlab']:
@@ -876,7 +853,7 @@ def reventry2dict_acad(rev, e):
         except KeyError:
             tex += '\n' + r'  \pos{' + mypos + '}'
         revheadwd = ', '.join(e[mypos])
-        tex += r'\n  \gloss{' + revheadwd + '}'
+        tex += '\n' + r'\gloss{' + revheadwd + '}'
         tex += '}\n\n'
     sortword = rev.strip().replace(r'\sci ', '').replace(r'\sp ', '').upper()
     sortword = sortword \
@@ -1085,7 +1062,7 @@ def reventry2dict_acad_es(rev, e):
         except KeyError:
             tex += '\n' + r'  \pos{' + mypos + ' (TODO: FIELD NOT MAPPED)}'
         revheadwd = ', '.join(e[mypos])
-        tex += r'\n  \gloss{' + revheadwd + '}'
+        tex += '\n' + r'  \gloss{' + revheadwd + '}'
         tex += '}\n\n'
 
     # Remove tex commands.

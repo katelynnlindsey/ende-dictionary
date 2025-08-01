@@ -49,7 +49,7 @@
 %\newcommand{\gloss}[1]{\textit{\textsf{#1}}{}}
 
 \newcommand{\variantof}{}
-\newcommand{\definition}[1]{\textit{#1}}
+\newcommand{\definition}[1]{#1}
 \newcommand{\example}[1]{#1}
 \newcommand{\exsen}[1]{\textit{#1}}
 \newcommand{\extran}[1]{`#1'}
@@ -64,7 +64,7 @@
 
 \newcommand{\reventry}[2]{\small\noindent\hangafter=1\hangindent=0.5em\markboth{#1}{#1}\pagebreak[3]#2 \vskip .0in}
 
-\newcommand{\headword}[1]{\hspace{0pt}\textsf{\normalsize{#1}{}}}
+\newcommand{\headword}[1]{\hspace{0pt}\textsf{\textbf{#1}{}}}
 
 \newcommand{\pronnote}[1]{[#1]}
 
@@ -72,15 +72,15 @@
 
 \newcommand{\irregplof}[1]{$\blacktriangleright$~\textsc{plural irreg.~de} \textsf{#1}{}}
 
-\newcommand{\lexeme}[1]{$\blacktriangleright\blacktriangleright$~ \textsc{raíz subyacente} \textsf{#1}{}}
+\newcommand{\lexeme}[1]{$\blacktriangleright\blacktriangleright$~ \textsc{lexeme} \textsf{#1}{}}
 
-\newcommand{\derivroot}[1]{$\blacktriangleright$~\textsc{raíz deriv.} \textsf{#1}{}}
+\newcommand{\derivroot}[1]{$\blacktriangleright$~\textsc{deriv. root} \textsf{#1}{}}
 %\newcommand{\impfrt}[1]{\textit{impf.rt.} \textbf{#1}{}}
 %\newcommand{\impfrtlab}{\textit{impf.rt.{ }}}
 
 \newcommand{\scientificname}[1]{$\blacktriangleright$~\textsc{Scientific name} \textit{#1}{}}
 
-\newcommand{\pos}[1]{\textsf{(#1)}}
+\newcommand{\pos}[1]{\textsf{(\textit{#1})}}
 
 \newcommand{\litmean}[1]{$\blacktriangleright$~\textsc{Lit.} {#1}}
 
@@ -186,7 +186,7 @@
 %\lfoot{}
 \cfoot{}
 %\rfoot{}
-\fancyfoot[RO]{{\textit{dictionary Ende–English}} \qquad \textpipe \qquad {\small{\thepage}}\\}
+\fancyfoot[RO]{{\textit{Ende–English Dictionary}} \qquad \textpipe \qquad {\small{\thepage}}\\}
 \fancyfoot[LE]{{\small{\thepage}} \qquad \textpipe \qquad  \textit{Ende to English}\\}  
 }
 
@@ -208,7 +208,7 @@
 %\mbox{}
 %\newpage
 
-\part*{{dictionary\\ Ende–English}}
+\part*{{Ende-English\\Dictionary}}
 
 
 \twocolumn[]

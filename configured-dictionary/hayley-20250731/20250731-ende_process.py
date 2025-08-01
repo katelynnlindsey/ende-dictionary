@@ -94,7 +94,7 @@ for entry in entries:
         try:
             vartype = rel.find('trait[@name="variant-type"]').attrib['value']
             parts = vartype.split()
-            #parts[0] = parts[0].capitalize()  # capitalize first word only and leave others as capitalized
+            parts[0] = parts[0].capitalize()  # capitalize first word only and leave others as capitalized
             vartype = ' '.join(parts)
         except:
             print('Could not get variant type for entry {:}'.format(refid))
