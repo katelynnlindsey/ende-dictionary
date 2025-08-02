@@ -33,7 +33,7 @@ posmap_en = {
     'Determiner' : 'det.',                         
     'Ditransitive verb' : 'd.v.',                                                                 
     'Interrogative word' : 'interrog.',   
-    'Locative demonstrative' : 'loc.dem', 
+    'Locative demonstrative' : 'loc.dem.', 
     'Locative postposition' : 'loc.postp.',                                         
     'Numeral' : 'num.',
     'Particle' : 'prtcl.',                                                     
@@ -53,6 +53,13 @@ posmap_en = {
     'Discourse particle':'disc.prtcl.',
     'Auxiliary verb':'aux.',
     'Quantifier':'quant.',
+    'Intransitive coverb':'cov.',
+    'Transitive coverb':'cov.',
+    'Personal pronoun':'pro.',
+    'Color term':'col.',
+    'Adverbial demonstrative':'adv.dem.',
+    'Nominal demonstrative':'nom.dem.',
+    'Transitive/Intransitive coverb':'cov.',
 }
 
 verb_pos = [
@@ -270,22 +277,27 @@ def sense_pos2tex(s, lang="en"):
     try:
         ginfo = s.find('grammatical-info').attrib['value'].strip()
     except AttributeError:
-        # print('WARNING: Could not find part-of-speech (sense/grammatical-info) ' \
-        #       'for sense guid {:}'.format(s.attrib['guid'])
-        # )
-       # print('2')
         ginfo = ''
-    if lang == "es":
-        try:
-            ginfo = posmap_es[ginfo]
-        except (KeyError, AttributeError):
-            pass
-    elif lang == "en":
-        try:
-            ginfo = posmap_en[ginfo]
-        except (KeyError, AttributeError):
-            pass
-    tex += r'  \pos{' + ginfo + '}'
+    # Check for Verb-infl-class trait
+    verb_class = ''
+    for trait in s.findall('grammatical-info/trait'):
+        if trait.get('name') == 'Verb-infl-class':
+            verb_class = trait.get('value', '')
+    # Special handling for Intransitive verb with Verb-infl-class
+    if ginfo == 'Intransitive verb' and verb_class:
+        tex += r'  \pos{v. ' + verb_class + '}'
+    else:
+        if lang == "es":
+            try:
+                ginfo = posmap_es[ginfo]
+            except (KeyError, AttributeError):
+                pass
+        elif lang == "en":
+            try:
+                ginfo = posmap_en[ginfo]
+            except (KeyError, AttributeError):
+                pass
+        tex += r'  \pos{' + ginfo + '}'
     return tex
 
 def pos2tex(e, lang="en"):
@@ -293,22 +305,27 @@ def pos2tex(e, lang="en"):
     try:
         ginfo = e.find('sense/grammatical-info').attrib['value'].strip()
     except AttributeError:
-        # print('WARNING: Could not find part-of-speech (sense/grammatical-info) ' \
-        #       'for entry guid {:}'.format(e.attrib['guid'])
-        # )
-        #print('3')
         ginfo = ''
-    if lang == "es":
-        try:
-            ginfo = posmap_es[ginfo]
-        except (KeyError, AttributeError):
-            pass
-    elif lang == "en":
-        try:
-            ginfo = posmap_en[ginfo]
-        except (KeyError, AttributeError):
-            pass
-    tex += '\n' + r'  \pos{' + ginfo + '}'
+    # Check for Verb-infl-class trait
+    verb_class = ''
+    for trait in e.findall('sense/grammatical-info/trait'):
+        if trait.get('name') == 'Verb-infl-class':
+            verb_class = trait.get('value', '')
+    # Special handling for Intransitive or Transitive verb with Verb-infl-class
+    if ginfo in ['Intransitive verb', 'Transitive verb'] and verb_class:
+        tex += r'  \pos{v. ' + verb_class + '}'
+    else:
+        if lang == "es":
+            try:
+                ginfo = posmap_es[ginfo]
+            except (KeyError, AttributeError):
+                pass
+        elif lang == "en":
+            try:
+                ginfo = posmap_en[ginfo]
+            except (KeyError, AttributeError):
+                pass
+        tex += '\n' + r'  \pos{' + ginfo + '}'
     return tex
 
 def get_irreg_pl(glosses):
@@ -391,7 +408,7 @@ def senses2tex(entry, sense_pos, letter):
         )
         tex += examples2tex(s)
         tex += '}'
-    print(tex)
+    #print(tex)
     return tex
 
 def senses2tex_es(entry, sense_pos, letter):
@@ -533,33 +550,31 @@ def relforms2tex_es(entry, letter):
     return tex
 
 def examples2tex(sense, lang="en"):
-    '''Returns examples in latex format.'''
+    '''Returns examples in latex format, skipping empty examples or translations.'''
     tex = ''
     examples = sense.findall('example')
     for ex in examples:
-        tex += '    \\example{'
-        tex += '\n'
         try:
             iquex = simplefield2tex(
                 ex, 'exsen', 'form[@lang="kit"]/text',
                 level=3, missing_ok=False, empty_ok=False
             )
-        except:
-            iquex=''
-           # iquex = '\n      \\exsen{MISSING}'
-        tex += iquex
-        try:
             enex = simplefield2tex(
                 ex,
                 'extran',
                 f'translation[@type="Free translation"]/form[@lang="{lang}"]/text',
                 level=3, missing_ok=False, empty_ok=False
             )
-        except AttributeError:
-            enex=''
-           # enex = '\n      \\extran{MISSING}'
-        tex += enex
-        tex += '}'
+            # Only include example if both iquex and enex are non-empty
+            if iquex.strip() and enex.strip():
+                tex += '    \\example{'
+                tex += '\n'
+                tex += iquex
+                tex += enex
+                tex += '}'
+        except (AttributeError, AssertionError):
+            # Skip examples with missing or empty fields
+            pass
     return tex
 
 
@@ -766,7 +781,7 @@ def entry2dict_acad(entry, variantmap, mainwdmap, irreg_pl_map, impf_rt_map):
                 else:
                     tex += pos2tex(entry)
                     tex += senses2tex(entry, sense_pos=False, letter=letter)
-                print(tex)
+                #print(tex)
             else:
                 s = entry.find('sense')
                 if s is not None:
@@ -877,8 +892,8 @@ def reventry2dict_acad(rev, e):
     if m is not None:
         letter = m.groupdict()['firstletter']
     else:
-        print(f"Warning: No valid first letter found for reversal '{rev}' (sortword: '{sortword}'). Using fallback '#'.") 
-        letter = '#'  # Fallback for numeric or invalid sortwords
+        print(f"Warning: No valid first letter found for reversal '{rev}' (sortword: '{sortword}'). Using fallback '##'.") 
+        letter = '##'  # Fallback for numeric or invalid sortwords
     add_wc(rev, letter, rev=True)
     return ({
         'firstletter': letter,

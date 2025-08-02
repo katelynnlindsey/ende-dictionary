@@ -91,24 +91,26 @@ for entry in entries:
         except AttributeError:
             print('Could not find entry {:}'.format(refid))
             continue
+        # Check if variant-type trait exists before accessing it
+        vartype_node = rel.find('trait[@name="variant-type"]')
+        if vartype_node is None:
+            continue  # Skip silently if no variant type is found
         try:
-            vartype = rel.find('trait[@name="variant-type"]').attrib['value']
+            vartype = vartype_node.attrib['value']
             parts = vartype.split()
-            parts[0] = parts[0].capitalize()  # capitalize first word only and leave others as capitalized
+            parts[0] = parts[0].capitalize()  # Capitalize first word only
             vartype = ' '.join(parts)
-        except:
-            print('Could not get variant type for entry {:}'.format(refid))
-            continue
-        if varmap[vartype] is not None:
+        except AttributeError:
+            continue  # Skip silently if variant type cannot be retrieved
+        if vartype in varmap:
             vartype = varmap[vartype]
         if vartype not in endedict.order_varlab_ende:
             missingvariants[vartype] = ''
         mainwdmap_en[entry.attrib['id']] = '\n  \\variantof{' + '\\' + vartype + ' of \\vartext{' + mainwd + '}}'
-#        if vartype == 'Imperfective root':
         if vartype == 'impfrtlab':
             impf_rt_map[refid] = endedict.get_headword(entry)
-            continue   # Do not include in variantmap
-        try:  # citation form if it exists, else lexeme form
+            continue  # Do not include in variantmap
+        try:  # Citation form if it exists, else lexeme form
             variant = entry.find('citation/form[@lang="kit"]/text').text
         except:
             variant = entry.find('lexical-unit/form[@lang="kit"]/text').text
