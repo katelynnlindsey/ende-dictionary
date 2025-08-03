@@ -10,7 +10,6 @@
 \usepackage[T1]{fontenc}
 \usepackage{langsci-gb4e}
 
-
 \usepackage{enumitem}
 \usepackage{multicol}
 \usepackage{longtable}
@@ -158,8 +157,20 @@
 
 \newcommand{\allomorphlab}{$\blacktriangleright$~\textsc{allomorfo(s)~}} 
 
-\newcommand{\allomorphof}[1]{$\blacktriangleright$~\textsc{alomorfo~de} \textsf{#1}{}}  
- 
+\newcommand{\allomorphof}[1]{$\blacktriangleright$~\textsc{alomorfo~de} \textsf{#1}{}}
+
+\newcommand{\complexforms}[1]{\begin{quote}$\blacktriangleright$~{#1}\xspace\end{quote}{}}
+
+\newcommand{\complexformtype}[1]{ (\MakeLowercase{#1})}
+
+\newcommand{\complexformhead}[1]{\textsf{#1}}
+
+\newcommand{\complexformpos}[1]{ \textsf{(#1)}}
+
+\newcommand{\complexformdefn}[1]{ #1}
+
+\newcommand{\complexformof}[1]{$\blacktriangleright$~\textsc{complex form of} {#1}{}}
+
 \titleformat{\chapter}[display]
 {\bfseries\sffamily\LARGE}
 {}{-4ex}{#1} 
@@ -167,7 +178,6 @@
 \titleformat{\section}
 {\vspace{0.5em}\bfseries\sffamily\large}
 {\large{\thesection}}{1em}{{#1}}[\vspace{0.5em}]
-
 
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
@@ -212,7 +222,6 @@
 %\newpage
 
 \part*{{Ende-English\\Dictionary}}
-
 
 \twocolumn[]
 \raggedright

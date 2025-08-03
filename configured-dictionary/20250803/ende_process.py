@@ -103,12 +103,13 @@ variantmap = {}
 mainwdmap_en = {}
 irreg_pl_map = {}
 impf_rt_map = {}
+complex_map = {}
 missingvariants = {}
-print("Building variant and main word mappings...")
+print("Building variant, main word, and complex form mappings...")
 for entry in entries:
     relations = entry.findall('relation[@type="_component-lexeme"]')
     for rel in relations:
-        refid = rel.attrib['ref']
+        refid = rel.attrib.get('ref', '')
         if refid == '':
             continue
         try:
@@ -117,44 +118,50 @@ for entry in entries:
             print(f'Could not find entry {refid}')
             continue
         vartype_node = rel.find('trait[@name="variant-type"]')
-        if vartype_node is None:
-            continue
-        try:
-            vartype = vartype_node.attrib['value']
-            parts = vartype.split()
-            parts[0] = parts[0].capitalize()
-            vartype = ' '.join(parts)
-        except AttributeError:
-            continue
-        if vartype in varmap:
-            vartype = varmap[vartype]
-        if vartype not in endedict.order_varlab_ende:
-            missingvariants[vartype] = ''
-        sanitized_mainwd = endedict.sanitize_latex(mainwd)
-        # Add hyperlink to mainwd if it's in valid_headwords
-        if mainwd in valid_headwords:
-            mainwdmap_en[entry.attrib['id']] = '\n' + r'\variantof{' + '\\' + vartype + r' of \vartext{\hyperlink{' + sanitized_mainwd + r'}{' + sanitized_mainwd + r'}}}'
-        else:
-            mainwdmap_en[entry.attrib['id']] = '\n' + r'\variantof{' + '\\' + vartype + r' of \vartext{' + sanitized_mainwd + r'}}'
-        if vartype == 'impfrtlab':
-            impf_rt_map[refid] = endedict.get_headword(entry)
-            continue
-        try:
-            variant = entry.find('citation/form[@lang="kit"]/text').text
-        except:
-            variant = entry.find('lexical-unit/form[@lang="kit"]/text').text
-        try:
-            variantmap[refid]
-        except KeyError:
-            variantmap[refid] = {}
-        try:
-            variantmap[refid][vartype].append(variant)
-        except KeyError:
-            variantmap[refid][vartype] = [variant]
+        complex_type_node = rel.find('trait[@name="complex-form-type"]')
+        entry_id = entry.attrib.get('id', '')
+        if complex_type_node is not None:
+            complex_type = complex_type_node.attrib.get('value', 'Complex')
+            try:
+                complex_map[refid].append((entry_id, complex_type))
+            except KeyError:
+                complex_map[refid] = [(entry_id, complex_type)]
+        if vartype_node is not None:
+            try:
+                vartype = vartype_node.attrib['value']
+                parts = vartype.split()
+                parts[0] = parts[0].capitalize()
+                vartype = ' '.join(parts)
+            except AttributeError:
+                continue
+            if vartype in varmap:
+                vartype = varmap[vartype]
+            if vartype not in endedict.order_varlab_ende:
+                missingvariants[vartype] = ''
+            sanitized_mainwd = endedict.sanitize_latex(mainwd)
+            if mainwd in valid_headwords:
+                mainwdmap_en[entry_id] = '\n' + r'\variantof{' + '\\' + vartype + r' of \vartext{\hyperlink{' + sanitized_mainwd + r'}{' + sanitized_mainwd + r'}}}'
+            else:
+                mainwdmap_en[entry_id] = '\n' + r'\variantof{' + '\\' + vartype + r' of \vartext{' + sanitized_mainwd + r'}}'
+            if vartype == 'impfrtlab':
+                impf_rt_map[refid] = endedict.get_headword(entry)
+                continue
+            try:
+                variant = entry.find('citation/form[@lang="kit"]/text').text
+            except:
+                variant = entry.find('lexical-unit/form[@lang="kit"]/text').text
+            try:
+                variantmap[refid]
+            except KeyError:
+                variantmap[refid] = {}
+            try:
+                variantmap[refid][vartype].append(variant)
+            except KeyError:
+                variantmap[refid][vartype] = [variant]
     glosses = entry.findall('sense/gloss[@lang="ga"]/text')
     for ipl in endedict.get_irreg_pl(glosses):
         irreg_pl_map[ipl] = endedict.get_headword(entry)
-print("Finished building mappings.")
+print(f"Finished building mappings. Complex forms mapped for {len(complex_map)} entries.")
 
 try:
     with open(tex_header, 'r', encoding='utf-8') as header_file:
@@ -185,7 +192,7 @@ with open(outfile_acad, 'w', encoding='utf-8') as out:
         elapsed = time.time() - start_regular
         eta = (elapsed / i) * (len(entries) - i) if i > 0 else 0
         print(f"Processing entry {i}/{len(entries)} ({percent:.1f}%): {headword}, ETA: {eta:.0f}s")
-        d, err = endedict.entry2dict_acad(e, variantmap, mainwdmap_en, irreg_pl_map, impf_rt_map, valid_headwords)
+        d, err = endedict.entry2dict_acad(e, variantmap, mainwdmap_en, irreg_pl_map, impf_rt_map, complex_map, entry_lookup, valid_headwords)
         if err is None:
             texentries.append(d)
         else:
