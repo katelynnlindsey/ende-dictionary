@@ -43,13 +43,8 @@
 \renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
 \renewcommand{\sectionmark}[1]{ \markright{#1}{} }
 
-%\titleformat{\section}
-%{\vspace{0.5em}\bfseries\sffamily\large}
-%{\large{\thesection}}{1em}{{#1}}[\vspace{0.5em}]
-
 \newcommand{\gloss}{}
 %\newcommand{\gloss}[1]{\textit{\textsf{#1}}{}}
-
 \newcommand{\variantof}{}
 \newcommand{\definition}[1]{#1}
 \newcommand{\example}[1]{#1}
@@ -57,161 +52,211 @@
 \newcommand{\extran}[1]{`#1'}
 \newcommand{\sense}{}
 \newcommand{\grammaticalinfo}{}
-
 \newcommand{\relform}{}
 \newcommand{\relforms}{}
 \newcommand{\discoursenote}{}
 
+% Defining entry command
 \newcommand{\entry}[2]{\small\noindent\hangafter=1\hangindent=0.5em\markboth{#1}{#1}#2 \vskip .03in}
 
+% Defining reversal entry command
 \newcommand{\reventry}[2]{\small\noindent\hangafter=1\hangindent=0.5em\markboth{#1}{#1}\pagebreak[3]#2 \vskip .0in}
 
-\newcommand{\headword}[1]{\hspace{0pt}\textsf{\textbf{#1}{}}}
+% Defining headword command
+\newcommand{\headword}[1]{\hspace{0pt}\textsf{\textbf{#1}}}
 
+% Defining pronunciation note
 \newcommand{\pronnote}[1]{[#1]}
 
-\newcommand{\irregpl}[1]{$\blacktriangleright$~\textsc{plural irreg.} \textsf{#1}{}}
+% Defining irregular plural
+\newcommand{\irregpl}[1]{$\blacktriangleright$~\textsc{plural irreg.} \textsf{#1}}
 
-\newcommand{\irregplof}[1]{$\blacktriangleright$~\textsc{plural irreg.~de} \textsf{#1}{}}
+% Defining irregular plural of
+\newcommand{\irregplof}[1]{$\blacktriangleright$~\textsc{plural irreg.~de} \textsf{#1}}
 
-\newcommand{\lexeme}[1]{$\blacktriangleright\blacktriangleright$~ \textsc{lexeme} \textsf{#1}{}}
+% Defining lexeme
+\newcommand{\lexeme}[1]{$\blacktriangleright\blacktriangleright$~ \textsc{lexeme} \textsf{#1}}
 
-\newcommand{\derivroot}[1]{$\blacktriangleright$~\textsc{deriv. root} \textsf{#1}{}}
-%\newcommand{\impfrt}[1]{\textit{impf.rt.} \textbf{#1}{}}
-%\newcommand{\impfrtlab}{\textit{impf.rt.{ }}}
+% Defining derivational root
+\newcommand{\derivroot}[1]{$\blacktriangleright$~\textsc{deriv. root} \textsf{#1}}
 
-\newcommand{\scientificname}[1]{$\blacktriangleright$~\textsc{Scientific name} \textit{#1}{}}
+% Defining imperfective root
+\newcommand{\impfrt}[1]{\textit{impf.rt.} \textsf{#1}}
+\newcommand{\impfrtlab}{\textit{impf.rt. }}
 
+% Defining scientific name
+\newcommand{\scientificname}[1]{$\blacktriangleright$~\textsc{Scientific name} \textit{#1}}
+
+% Defining part of speech
 \newcommand{\pos}[1]{\textsf{(\textit{#1})}}
 
+% Defining literal meaning
 \newcommand{\litmean}[1]{$\blacktriangleright$~\textsc{Lit.} {#1}}
 
+% Defining grammar note
 \newcommand{\grammarnote}[1]{$\blacktriangleright$~\textsc{Grammatical note} {#1.}}
 
+% Defining related form part of speech
 \newcommand{\relformpos}[1]{\textsf{(#1)}}
 
-\newcommand{\relformen}[1]{{#1}}
+% Defining related form in English
+\newcommand{\relformen}[1]{#1}
 
-\newcommand{\relformeu}[1]{{#1}}
+% Defining related form in Ende
+\newcommand{\relformiqu}[1]{#1}
 
-\newcommand{\note}[1]{$\blacktriangleright$~\textsc{Note} {#1}{}}
-%\newcommand{\note}[1]{$\bullet$ {#1.}{}}
+% Defining general note
+\newcommand{\note}[1]{$\blacktriangleright$~\textsc{Note} {#1}}
 
+% Defining scientific name shorthand
 \newcommand{\sci}[1]{\textit{#1}}
 
-\newcommand{\spa}[1]{\textsf{{#1}}}
+% Defining Spanish shorthand
+\newcommand{\spa}[1]{\textsf{#1}}
 
-\newcommand{\spq}[1]{\textit{{#1}}}
+% Defining quoted Spanish
+\newcommand{\spq}[1]{\textit{#1}}
 
-% CMB: \iqt is used one time, to make the formatting the same as it appears in the actual dictionary:
+% Defining quoted Ende
 \newcommand{\iqt}[1]{\textsf{#1}}
 
-\newcommand{\iqu}[1]{{\textsf{#1}}}
-%\newcommand{\iqu}[1]{\textit{\textsf{#1}}}
+% Defining Ende text
+\newcommand{\iqu}[1]{\textsf{#1}}
 
+% Defining English text
 \newcommand{\eng}[1]{\textit{#1}}
 
+% Defining variant text
 \newcommand{\vartext}[1]{\textsf{#1}}
 
-\newcommand{\gramnoteentry}[1]{$\blacktriangleright$~\textsc{nota gramatical} {#1.}{}}
+% Defining grammar note for entry
+\newcommand{\gramnoteentry}[1]{$\blacktriangleright$~\textsc{nota gramatical} {#1.}}
 
+% Defining possessive prefix
 \newcommand{\posspref}[1]{\textit{#1}.}
 
-\newcommand{\semnote}[1]{$\blacktriangleright$~\textsc{Semantic note} {#1.}{}}
-%\newcommand{\semnote}[1]{$\blacktriangleright$~\textsc{Nota semántica:} {#1.}{}}
+% Defining semantic note
+\newcommand{\semnote}[1]{$\blacktriangleright$~\textsc{Semantic note} {#1.}}
 
-\newcommand{\semnoteentry}[1]{$\blacktriangleright$~\textsc{Semantic note} {#1.}{}}
+% Defining semantic note for entry
+\newcommand{\semnoteentry}[1]{$\blacktriangleright$~\textsc{Semantic note} {#1.}}
 
-\newcommand{\anthronote}[1]{$\blacktriangleright$~\textsc{Cultural note} {#1.}{}}
+% Defining cultural note
+\newcommand{\anthronote}[1]{$\blacktriangleright$~\textsc{Cultural note} {#1.}}
 
-\newcommand{\anthnoteentry}[1]{$\blacktriangleright$~\textsc{Cultural note} {#1.}{}}
+% Defining cultural note for entry
+\newcommand{\anthnoteentry}[1]{$\blacktriangleright$~\textsc{Cultural note} {#1.}}
 
-\newcommand{\altpronuncnote}[1]{$\blacktriangleright$~\textsc{Alternative pronunciation} {#1:}{}}
-%\newcommand{\pronnote}[1]{\textit{fst.spch.} \textbf{#1}{}}
+% Defining alternative pronunciation note
+\newcommand{\altpronuncnote}[1]{$\blacktriangleright$~\textsc{Alternative pronunciation} {#1:}}
 
+% Defining alternative pronunciation
 \newcommand{\altpronunc}[1]{\textsf{#1}}
 
-\newcommand{\socionote}[1]{$\blacktriangleright$~\textsc{Sociolinguistic note} {#1.}{}}
+% Defining sociolinguistic note
+\newcommand{\socionote}[1]{$\blacktriangleright$~\textsc{Sociolinguistic note} {#1.}}
 
-\newcommand{\socionoteentry}[1]{$\blacktriangleright$~\textsc{Sociolinguistic note} {#1.}{}}
+% Defining sociolinguistic note for entry
+\newcommand{\socionoteentry}[1]{$\blacktriangleright$~\textsc{Sociolinguistic note} {#1.}}
 
-\newcommand{\variants}[1]{{#1}{}}
+% Defining variants
+\newcommand{\variants}[1]{#1}
 
+% Defining reversal part of speech
 \newcommand{\rpos}[1]{\textsf{(#1)}}
 
-\newcommand{\Spellingvariant}{$\blacktriangleright$~\textsc{spelling var.{ }}}
-\newcommand{\FastSpeechvariant}{$\blacktriangleright$~\textsc{fast speech var.{ }}}
-\newcommand{\Inflectedform}{$\blacktriangleright$~\textsc{inflected form{ }}}
-\newcommand{\Unspecifiedvariant}{$\blacktriangleright$~\textsc{var.{ }}}
-\newcommand{\Dialectalvariant}{$\blacktriangleright$~\textsc{dial. var.{ }}}
-\newcommand{\Derivedvariant}{$\blacktriangleright$~\textsc{der. from{ }}}
-\newcommand{\Infinitivalreduplicant}{$\blacktriangleright$~\textsc{inf. reduplicant{ }}}
-\newcommand{\Pluralreduplicant}{$\blacktriangleright$~\textsc{pl. reduplicant{ }}}
-\newcommand{\Derivationalreduplicant}{$\blacktriangleright$~\textsc{der. reduplicant{ }}}
-\newcommand{\BabyTalkvariant}{$\blacktriangleright$~\textsc{baby talk var.{ }}}
-\newcommand{\Freevariant}{$\blacktriangleright$~\textsc{free var.{ }}}
+% Defining variant types
+\newcommand{\Spellingvariant}{$\blacktriangleright$~\textsc{spelling var. }}
+\newcommand{\FastSpeechvariant}{$\blacktriangleright$~\textsc{fast speech var. }}
+\newcommand{\Inflectedform}{$\blacktriangleright$~\textsc{inflected form }}
+\newcommand{\Unspecifiedvariant}{$\blacktriangleright$~\textsc{var. }}
+\newcommand{\Dialectalvariant}{$\blacktriangleright$~\textsc{dial. var. }}
+\newcommand{\Derivedvariant}{$\blacktriangleright$~\textsc{der. from }}
+\newcommand{\Infinitivalreduplicant}{$\blacktriangleright$~\textsc{inf. reduplicant }}
+\newcommand{\Pluralreduplicant}{$\blacktriangleright$~\textsc{pl. reduplicant }}
+\newcommand{\Derivationalreduplicant}{$\blacktriangleright$~\textsc{der. reduplicant }}
+\newcommand{\BabyTalkvariant}{$\blacktriangleright$~\textsc{baby talk var. }}
+\newcommand{\Freevariant}{$\blacktriangleright$~\textsc{free var. }}
 
-\newcommand{\freevarof}[1]{$\blacktriangleright$~\textsc{var.~libre de} \textsf{#1}{}} 
+% Defining free variant of
+\newcommand{\freevarof}[1]{$\blacktriangleright$~\textsc{var.~libre de} \textsf{#1}}
 
-\newcommand{\dialectvarof}[1]{$\blacktriangleright$~\textsc{var.~dialectal de} \textsf{#1}{}}
+% Defining dialectal variant of
+\newcommand{\dialectvarof}[1]{$\blacktriangleright$~\textsc{var.~dialectal de} \textsf{#1}}
 
-\newcommand{\allomorphlab}{$\blacktriangleright$~\textsc{allomorfo(s)~}} 
+% Defining allomorph label
+\newcommand{\allomorphlab}{$\blacktriangleright$~\textsc{allomorph(s)~}}
 
-\newcommand{\allomorphof}[1]{$\blacktriangleright$~\textsc{alomorfo~de} \textsf{#1}{}}
+% Defining allomorph of
+\newcommand{\allomorphof}[1]{$\blacktriangleright$~\textsc{allomorph~of} \textsf{#1}}
 
-\newcommand{\complexforms}[1]{\begin{quote}$\blacktriangleright$~{#1}\xspace\end{quote}{}}
+% Defining complex forms
+\newcommand{\complexforms}[1]{\begin{quote}$\blacktriangleright$~{#1}\end{quote}}
 
+% Defining complex form type
 \newcommand{\complexformtype}[1]{ (\MakeLowercase{#1})}
 
+% Defining complex form headword
 \newcommand{\complexformhead}[1]{\textsf{#1}}
 
+% Defining complex form part of speech
 \newcommand{\complexformpos}[1]{ \textsf{(#1)}}
 
+% Defining complex form definition
 \newcommand{\complexformdefn}[1]{ #1}
 
-\newcommand{\complexformof}[1]{$\blacktriangleright$~\textsc{complex form of} {#1}{}}
+% Defining complex form of
+\newcommand{\complexformof}[1]{$\blacktriangleright$~\textsc{complex form of} {#1}}
 
+% Defining relation types without nested hyperlinks
+\newcommand{\synonym}[1]{$\blacktriangleright$~\textsc{Syn.} \textsf{#1}}
+\newcommand{\antonym}[1]{$\blacktriangleright$~\textsc{Ant.} \textsf{#1}}
+\newcommand{\generic}[1]{$\blacktriangleright$~\textsc{Gen.} \textsf{#1}}
+\newcommand{\coordinateterm}[1]{$\blacktriangleright$~\textsc{Coord.} \textsf{#1}}
+\newcommand{\specific}[1]{$\blacktriangleright$~\textsc{Spec.} \textsf{#1}}
+\newcommand{\colloquialterm}[1]{$\blacktriangleright$~\textsc{Coll.} \textsf{#1}}
+\newcommand{\exampleterm}[1]{$\blacktriangleright$~\textsc{Ex.} \textsf{#1}}
+\newcommand{\doublet}[1]{$\blacktriangleright$~\textsc{Doub.} \textsf{#1}}
+\newcommand{\fullphrase}[1]{$\blacktriangleright$~\textsc{Phrase} \textsf{#1}}
+\newcommand{\nearsynonym}[1]{$\blacktriangleright$~\textsc{Near Syn.} \textsf{#1}}
+\newcommand{\whole}[1]{$\blacktriangleright$~\textsc{Whole} \textsf{#1}}
+\newcommand{\partterm}[1]{$\blacktriangleright$~\textsc{Part} \textsf{#1}}
+\newcommand{\nottobeconfused}[1]{$\blacktriangleright$~\textsc{Not Conf.} \textsf{#1}}
+\newcommand{\nonsingular}[1]{$\blacktriangleright$~\textsc{Nonsing.} \textsf{#1}}
+\newcommand{\singular}[1]{$\blacktriangleright$~\textsc{Sing.} \textsf{#1}}
+\newcommand{\ideovoiced}[1]{$\blacktriangleright$~\textsc{Ideo. (voiced)} \textsf{#1}}
+\newcommand{\ideovoiceless}[1]{$\blacktriangleright$~\textsc{Ideo. (voiceless)} \textsf{#1}}
+
+% Formatting chapter titles
 \titleformat{\chapter}[display]
 {\bfseries\sffamily\LARGE}
-{}{-4ex}{#1} 
+{}{-4ex}{#1}
 
+% Formatting section titles
 \titleformat{\section}
 {\vspace{0.5em}\bfseries\sffamily\large}
 {\large{\thesection}}{1em}{{#1}}[\vspace{0.5em}]
 
+% Setting up page style
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \lhead{\textsf{\rightmark}}
 \rhead{\textsf{\leftmark}}
 \chead{}
-%\lfoot{}
 \cfoot{}
-%\rfoot{}
 \fancyfoot[RO]{{\textit{Dictionary Ende{\textendash}English}} \qquad \textpipe \qquad {\small{\thepage}}\\}
 \fancyfoot[LE]{{\small{\thepage}} \qquad \textpipe \qquad  \textit{Dictionary Ende{\textendash}English}\\}
 
+% Defining plain page style
 \fancypagestyle{plain}{
 \fancyhf{}% clears all header and footer fields
 \renewcommand{\headrulewidth}{0pt}
-%\lhead{\textbf{\rightmark}}
-%\rhead{\textbf{\leftmark}}
-%\chead{}
-%\lfoot{}
 \cfoot{}
-%\rfoot{}
 \fancyfoot[RO]{{\textit{Ende–English Dictionary}} \qquad \textpipe \qquad {\small{\thepage}}\\}
-\fancyfoot[LE]{{\small{\thepage}} \qquad \textpipe \qquad  \textit{Ende to English}\\}  
+\fancyfoot[LE]{{\small{\thepage}} \qquad \textpipe \qquad  \textit{Ende to English}\\}
 }
 
-%THINGS to find-replace and hand-edit
-% p.~ej. > p.~ej.
-% conj. > subord.
-% ~$\parallel$~ } >>> }
-% (medio) >>> } \textsc{(med.)
-%} (activo) >>> } \textsc{(act.)
-% comment out "extra" k=, kw=, p=, pɨ=
-% merge U and UU
-
+% Document start
 \begin{document}
 
 \setcounter{page}{1}
@@ -221,10 +266,13 @@
 %\mbox{}
 %\newpage
 
+% Title
 \part*{{Ende-English\\Dictionary}}
 
+% Setting two-column layout
 \twocolumn[]
 \raggedright
 
+% Setting no widow or club lines
 \setnoclub
 \setnowidow

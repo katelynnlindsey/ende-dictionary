@@ -32,8 +32,18 @@ print(f"Found {len(entries)} entries in {infile}.")
 entry_lookup = {e.attrib['id']: e for e in entries if 'id' in e.attrib}
 print(f"Built entry lookup for {len(entry_lookup)} entries.")
 
+# Pre-build sense lookup dictionary
+sense_lookup = {}
+for e in entries:
+    entry_id = e.attrib.get('id', '')
+    for s in e.findall('sense'):
+        sense_id = s.attrib.get('id', '')
+        if sense_id:
+            sense_lookup[sense_id] = e
+print(f"Built sense lookup for {len(sense_lookup)} senses.")
+
 # Cache valid headwords
-valid_headwords = {endedict.get_headword(e) for e in entries}
+valid_headwords = {endedict.get_headword(e) for e in entries if endedict.get_headword(e)}
 print(f"Cached {len(valid_headwords)} valid headwords.")
 
 reventries_en = [
@@ -48,6 +58,10 @@ for e in root.findall('entry'):
     entry_id = e.attrib.get('id', None)
     if entry_id is None:
         print(f"Warning: Entry with guid {e.attrib.get('guid', 'unknown')} has no 'id' attribute")
+        continue
+    headword = endedict.get_headword(e)
+    if not headword:
+        print(f"Warning: Skipping entry with id '{entry_id}' due to empty or invalid headword")
         continue
     for sns in e.findall('sense'):
         try:
@@ -79,7 +93,7 @@ for e in root.findall('entry'):
 for rev in reversalentries_en.keys():
     for pos in reversalentries_en[rev]:
         try:
-            reversalentries_en[rev][pos].sort(key=lambda s: endedict.str2sort(endedict.get_headword(entry_lookup.get(s, None))))
+            reversalentries_en[rev][pos].sort(key=lambda s: endedict.str2sort(endedict.get_headword(entry_lookup.get(s, None)) or ''))
         except (KeyError, AttributeError) as e:
             print(f'Error sorting reversals for "{rev}" (pos: {pos}): {e}')
             print(f'Could not sort entries: {reversalentries_en[rev][pos]}')
@@ -107,6 +121,10 @@ complex_map = {}
 missingvariants = {}
 print("Building variant, main word, and complex form mappings...")
 for entry in entries:
+    headword = endedict.get_headword(entry)
+    if not headword:
+        print(f"Warning: Skipping entry with id '{entry.attrib.get('id', 'unknown')}' due to empty or invalid headword in mappings")
+        continue
     relations = entry.findall('relation[@type="_component-lexeme"]')
     for rel in relations:
         refid = rel.attrib.get('ref', '')
@@ -114,6 +132,9 @@ for entry in entries:
             continue
         try:
             mainwd = endedict.get_headword(entry_lookup[refid])
+            if not mainwd:
+                print(f"Warning: Invalid headword for referenced entry ID '{refid}'")
+                continue
         except KeyError:
             print(f'Could not find entry {refid}')
             continue
@@ -188,15 +209,18 @@ with open(outfile_acad, 'w', encoding='utf-8') as out:
         if endedict.is_excluded(e) or endedict.is_suffix(e):
             continue
         headword = endedict.get_headword(e)
+        if not headword:
+            print(f"Warning: Skipping entry with id '{e.attrib.get('id', 'unknown')}' due to empty or invalid headword")
+            continue
         percent = (i / len(entries)) * 100
         elapsed = time.time() - start_regular
         eta = (elapsed / i) * (len(entries) - i) if i > 0 else 0
         print(f"Processing entry {i}/{len(entries)} ({percent:.1f}%): {headword}, ETA: {eta:.0f}s")
-        d, err = endedict.entry2dict_acad(e, variantmap, mainwdmap_en, irreg_pl_map, impf_rt_map, complex_map, entry_lookup, valid_headwords)
-        if err is None:
+        d, err = endedict.entry2dict_acad(e, variantmap, mainwdmap_en, irreg_pl_map, impf_rt_map, complex_map, entry_lookup, sense_lookup, valid_headwords)
+        if err is None and d['headword']:
             texentries.append(d)
         else:
-            print(f"Error in entry {headword}: {err}")
+            print(f"Error in entry {headword or 'unknown'}: {err}")
     texentries.sort(key=lambda entry: entry['sortword'])
     out.write(r'\section{Regular Dictionary}' + "\n\n")
     lastchapter = ''
@@ -211,6 +235,9 @@ with open(outfile_acad, 'w', encoding='utf-8') as out:
     print(f"Processing reversal dictionary entries ({len(reversalentries_en)} entries)...")
     start_reversal = time.time()
     for i, (rev, e) in enumerate(reversalentries_en.items(), 1):
+        if not rev:
+            print(f"Warning: Skipping reversal entry with empty headword")
+            continue
         percent = (i / len(reversalentries_en)) * 100
         elapsed = time.time() - start_reversal
         eta = (elapsed / i) * (len(reversalentries_en) - i) if i > 0 else 0
@@ -237,7 +264,7 @@ with open(outfile_acad, 'w', encoding='utf-8') as out:
             print(f"Error: reventry2dict_acad returned None for reversal '{rev}' (sortword: '{sortword}', entry: {e})")
             continue
         d, err = result
-        if err is None:
+        if err is None and d['headword']:
             texentries.append(d)
         elif err == 'SCI':
             pass

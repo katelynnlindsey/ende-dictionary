@@ -1,17 +1,9 @@
 import re
+import json
 
 # Storage for word counts
 wordcounts = { }
 revwordcounts = { }
-
-glossmap = {
-    'Raíz:': r'\textit{Raíz:}',
-    'PL:': r'\textit{Plural:}',
-    'Forma poseída:': r'\textit{Forma poseída:}',
-    'Variante:': r'\textit{Variante:}',
-    'No hay forma plural': r'\textit{No hay forma plural}',
-    'Variantes:': r'\textit{Variantes:}'
-}
 
 posmap_en = {
     'Adjective': 'adj.',
@@ -63,6 +55,7 @@ posmap_en = {
     'Transitive compound verb':'comp.v.',
     'Intransitive compound verb':'comp.v.',
     'Property noun':'prop.n.',
+    'Coordinating connective':'coord.conn.',
 }
 
 verb_pos = [
@@ -138,10 +131,12 @@ def cleanstr(s):
     for c in 'áéíóú':
         s = s.replace(c + '́', c).replace(c.upper() + '́', c.upper())
         s = s.replace(c + '\u0081', c).replace(c.upper() + '\u0081', c.upper())
-    s = s.replace('~', '').replace('ẽ', 'e') \
-         .replace('0', '').replace('1', '').replace('2', '').replace('3', '') \
-         .replace('4', '').replace('5', '').replace('6', '').replace('7', '') \
-         .replace('8', '').replace('9', '')
+    s = s.replace('~', '').replace('ẽ', 'e')
+    # Preserve digits for numeric headwords
+    # Optionally, comment out the following lines to exclude numeric headwords
+    # s = s.replace('0', '').replace('1', '').replace('2', '').replace('3', '')
+    # s = s.replace('4', '').replace('5', '').replace('6', '').replace('7', '')
+    # s = s.replace('8', '').replace('9', '')
     return s
 
 def cleantex(s):
@@ -153,13 +148,18 @@ def nodetext(node):
     return cleantex(''.join(list(node.itertext())))
 
 def get_headword(entry):
-    '''Return an entry's headword. Throw an error if entry's headword fields are missing or empty.'''
+    '''Return an entry's headword. Return None if headword fields are missing or empty.'''
     try:
         hdwd = nodetext(entry.find('citation/form[@lang="kit"]/text')).strip()
-        assert(hdwd is not None)
-    except:
-        hdwd = nodetext(entry.find('lexical-unit/form[@lang="kit"]/text')).strip()
-        assert(hdwd is not None)
+        if not hdwd:
+            return None
+    except (AttributeError, TypeError):
+        try:
+            hdwd = nodetext(entry.find('lexical-unit/form[@lang="kit"]/text')).strip()
+            if not hdwd:
+                return None
+        except (AttributeError, TypeError):
+            return None
     return hdwd
 
 def add_wc(s, letter, rev=False):
@@ -291,7 +291,7 @@ def glosses2tex(glosses):
     '''Placeholder for glosses to LaTeX conversion (currently unused).'''
     return ''
 
-def senses2tex(entry, sense_pos, letter):
+def senses2tex(entry, sense_pos, letter, entry_lookup, sense_lookup, valid_headwords):
     '''Return senses in LaTeX format for English dictionary.'''
     tex = ''
     senses = entry.findall('sense')
@@ -329,54 +329,7 @@ def senses2tex(entry, sense_pos, letter):
             s, 'discoursenote', 'note[@type="discourse"]/form[@lang="en"]/text', level=2, letter=letter
         )
         tex += examples2tex(s)
-        tex += '}'
-    return tex
-
-def senses2tex_es(entry, sense_pos, letter):
-    '''Return Spanish language senses in LaTeX format.'''
-    tex = ''
-    senses = entry.findall('sense')
-    for idx, s in enumerate(senses):
-        tex += '  \\sense{'
-        if len(senses) > 1:
-            tex += r'\textbf{' + '{:d}'.format(idx + 1) + '.} '
-        tex += '\n'
-        if sense_pos is True:
-            tex += sense_pos2tex(s, lang="es")
-        try:
-            definitions = s.findall('definition/form[@lang="kit"]/text')
-            for definition in definitions:
-                defn = ''.join(definition.itertext()).strip()
-                tex += '    \\definition{' + defn + '}'
-                add_wc(defn, letter)
-        except (AttributeError, TypeError):
-            pass
-        tex += simplefield2tex(
-            s, 'scientificname', 'field[@type="scientific-name"]/form[@lang="en"]/text', level=2
-        )
-        note = simplefield2tex(
-            entry, 'note', 'note/form[@lang="en"]/text', level=2
-        )
-        tex += note
-        tex += simplefield2tex(
-            s, 'anthronote', 'note[@type="anthropology"]/form[@lang="eu"]/text', level=2, letter=letter
-        )
-        tex += simplefield2tex(
-            s, 'semnote', 'note[@type="semantics"]/form[@lang="eu"]/text', level=2, letter=letter
-        )
-        tex += simplefield2tex(
-            s, 'grammarnote', 'note[@type="grammar"]/form[@lang="eu"]/text', level=2, letter=letter
-        )
-        tex += simplefield2tex(
-            s, 'posspref', f'field[@type="Poss Pref"]/form[@lang="eu"]/text', level=2, letter=letter
-        )
-        tex += simplefield2tex(
-            s, 'socionote', 'note[@type="sociolinguistics"]/form[@lang="eu"]/text', level=2, letter=letter
-        )
-        tex += simplefield2tex(
-            s, 'discoursenote', 'note[@type="discourse"]/form[@lang="eu"]/text', level=2, letter=letter
-        )
-        tex += examples2tex(s, lang="es")
+        tex += relations2tex(s, entry_lookup, sense_lookup, valid_headwords, letter, entry)
         tex += '}'
     return tex
 
@@ -450,6 +403,60 @@ def simplefield2tex(node, texfld, xpath, level=1, missing_ok=True, empty_ok=True
             raise e
     return tex
 
+def relations2tex(sense, entry_lookup, sense_lookup, valid_headwords, letter, entry):
+    '''Returns relations (synonyms, antonyms, etc.) in LaTeX format, grouping multiple relations of the same type inline with commas.'''
+    tex = ''
+    relation_map = {
+        'Synonym': 'synonym',
+        'Antonym': 'antonym',
+        'Generic': 'generic',
+        'Coordinate term': 'coordinateterm',
+        'Specific': 'specific',
+        'Colloquial term': 'colloquialterm',
+        'Example': 'exampleterm',
+        'Doublet': 'doublet',
+        'Full phrase': 'fullphrase',
+        'Near synonym': 'nearsynonym',
+        'Whole': 'whole',
+        'Part': 'partterm',
+        'Not to be confused': 'nottobeconfused',
+        'Nonsingular': 'nonsingular',
+        'Singular': 'singular',
+        'Ideophonic pair (voiced)': 'ideovoiced',
+        'Ideophonic pair (voiceless)': 'ideovoiceless',
+    }
+    current_headword = get_headword(entry)
+    # Group relations by type
+    relations_by_type = {}
+    for rel in sense.findall('relation'):
+        rel_type = rel.get('type')
+        if rel_type not in relation_map:
+            continue
+        ref_id = rel.get('ref', '')
+        if not ref_id:
+            print(f"Warning: Empty 'ref' attribute for relation type '{rel_type}' in entry '{current_headword or 'unknown'}'")
+            continue
+        ref_entry = sense_lookup.get(ref_id)
+        if not ref_entry:
+            print(f"Warning: Sense ID '{ref_id}' not found for relation type '{rel_type}' in entry '{current_headword or 'unknown'}'")
+            continue
+        headword = get_headword(ref_entry)
+        if not headword:
+            print(f"Warning: Invalid headword for sense ID '{ref_id}' in entry '{current_headword or 'unknown'}'")
+            continue
+        sanitized_headword = sanitize_latex(headword)
+        formatted_headword = f'\\hyperlink{{{sanitized_headword}}}{{{sanitized_headword}}}' if headword in valid_headwords else sanitized_headword
+        if rel_type not in relations_by_type:
+            relations_by_type[rel_type] = []
+        relations_by_type[rel_type].append((headword, formatted_headword))
+        add_wc(sanitized_headword, letter)
+    # Generate LaTeX for each relation type
+    for rel_type, headwords in relations_by_type.items():
+        tex += f'  \\{relation_map[rel_type]}{{'
+        tex += ', '.join(formatted for _, formatted in headwords)
+        tex += '}'
+    return tex
+
 def complexforms2tex(entry, complex_map, entry_lookup, valid_headwords, letter):
     '''Returns complex forms referencing this entry in LaTeX format.'''
     tex = ''
@@ -460,9 +467,12 @@ def complexforms2tex(entry, complex_map, entry_lookup, valid_headwords, letter):
     for idx, (complex_id, complex_type) in enumerate(complex_entries, 1):
         complex_entry = entry_lookup.get(complex_id)
         if not complex_entry:
-            print(f"Warning: Complex form entry ID '{complex_id}' not found for entry '{get_headword(entry)}'")
+            print(f"Warning: Complex form entry ID '{complex_id}' not found for entry '{get_headword(entry) or 'unknown'}'")
             continue
         headword = get_headword(complex_entry)
+        if not headword:
+            print(f"Warning: Invalid headword for complex form ID '{complex_id}'")
+            continue
         sanitized_headword = sanitize_latex(headword)
         pos = get_first_pos(complex_entry)
         pos = posmap_en.get(pos, pos)
@@ -471,8 +481,6 @@ def complexforms2tex(entry, complex_map, entry_lookup, valid_headwords, letter):
         except (AttributeError, TypeError):
             definition = ''
         tex += '  \\complexforms{'
-        #if len(complex_entries) > 1:
-            #tex += '{:d}. '.format(idx)
         tex += r'\complexformhead{' + (r'\hyperlink{' + sanitized_headword + r'}{' + sanitized_headword + r'}' if headword in valid_headwords else sanitized_headword) + r'}'
         tex += r'\complexformpos{' + pos + r'}'
         if definition:
@@ -494,9 +502,12 @@ def complexformof2tex(entry, entry_lookup, valid_headwords, letter):
             continue
         base_entry = entry_lookup.get(refid)
         if not base_entry:
-            print(f"Warning: Base entry ID '{refid}' not found for complex form '{get_headword(entry)}'")
+            print(f"Warning: Base entry ID '{refid}' not found for complex form '{get_headword(entry) or 'unknown'}'")
             continue
         headword = get_headword(base_entry)
+        if not headword:
+            print(f"Warning: Invalid headword for base entry ID '{refid}'")
+            continue
         sanitized_headword = sanitize_latex(headword)
         pos = get_first_pos(base_entry)
         pos = posmap_en.get(pos, pos)
@@ -518,7 +529,7 @@ def entry2pglex(e):
     '''Convert entry to JSON for external use.'''
     ginfo = e.find('sense/grammatical-info').attrib['value'].strip()
     try:
-        ginfo = posmap[ginfo]
+        ginfo = posmap_en[ginfo]
     except (KeyError, AttributeError):
         pass
     d = {
@@ -549,12 +560,15 @@ def sanitize_latex(s):
          .replace('^', r'\textasciicircum{}'))
     return s
 
-def entry2dict_acad(entry, variantmap, mainwdmap, irreg_pl_map, impf_rt_map, complex_map, entry_lookup, valid_headwords):
+def entry2dict_acad(entry, variantmap, mainwdmap, irreg_pl_map, impf_rt_map, complex_map, entry_lookup, sense_lookup, valid_headwords):
     '''
     Return contents of <entry> node as a dict with useful values for academic dictionary.
     Adds hypertarget for headword, hyperlinks for variants, and complex forms sections.
     '''
     headword = get_headword(entry)
+    if not headword:
+        print(f"Warning: Skipping entry with id '{entry.attrib.get('id', 'unknown')}' due to empty or invalid headword")
+        return ({'firstletter': '', 'headword': '', 'sortword': '', 'tex': ''}, None)
     letter = firstletter(headword).upper()
     sanitized_headword = sanitize_latex(headword)
     tex = '\n' + r'\entry{' + sanitized_headword + r'}{'
@@ -566,88 +580,84 @@ def entry2dict_acad(entry, variantmap, mainwdmap, irreg_pl_map, impf_rt_map, com
     except KeyError:
         pass
     glosses = entry.findall('sense/gloss[@lang="ga"]/text')
+    isvariant = False
     try:
+        tex += mainwdmap[entry.attrib['id']]
+        isvariant = True
+    except KeyError:
         pass
-    finally:
-        isvariant = False
+    tex += simplefield2tex(
+        entry, 'irregpl', 'field[@type="Irreg Pl"]/form/text', level=1
+    )
+    tex += simplefield2tex(
+        entry, 'irregposs', 'field[@type="Irreg Poss"]/form/text', level=1
+    )
+    for irform in ['irregthirdposs', 'irregfirstposs']:
         try:
-            tex += mainwdmap[entry.attrib['id']]
-            isvariant = True
+            variants = ', '.join(
+                [sanitize_latex(v.strip()) for v in variantmap[entry.attrib['id']][irform]]
+            )
+            tex += '\n' + r'\\' + irform + r'{' + variants + r'}'
         except KeyError:
             pass
-        finally:
+    tex += simplefield2tex(
+        entry, 'derivroot', 'field[@type="Deriv Root"]/form/text', level=1
+    )
+    tex += simplefield2tex(
+        entry, 'litmean', 'field[@type="literal-meaning"]/form[@lang="en"]/text', level=1, letter=letter
+    )
+    tex += simplefield2tex(
+        entry, 'pronnote', 'pronunciation/form/text', level=1
+    )
+    if isvariant is False:
+        if get_first_pos(entry) in verb_pos:
+            tex += senses2tex(entry, sense_pos=True, letter=letter, entry_lookup=entry_lookup, sense_lookup=sense_lookup, valid_headwords=valid_headwords)
+        else:
+            tex += pos2tex(entry)
+            tex += senses2tex(entry, sense_pos=False, letter=letter, entry_lookup=entry_lookup, sense_lookup=sense_lookup, valid_headwords=valid_headwords)
+    else:
+        s = entry.find('sense')
+        if s is not None:
             tex += simplefield2tex(
-                entry, 'irregpl', 'field[@type="Irreg Pl"]/form/text', level=1
+                s, 'scientificname', 'field[@type="scientific-name"]/form[@lang="en"]/text', level=2
             )
             tex += simplefield2tex(
-                entry, 'irregposs', 'field[@type="Irreg Poss"]/form/text', level=1
-            )
-            for irform in ['irregthirdposs', 'irregfirstposs']:
-                try:
-                    variants = ', '.join(
-                        [sanitize_latex(v.strip()) for v in variantmap[entry.attrib['id']][irform]]
-                    )
-                    tex += '\n' + r'\\' + irform + r'{' + variants + r'}'
-                except KeyError:
-                    pass
-            tex += simplefield2tex(
-                entry, 'derivroot', 'field[@type="Deriv Root"]/form/text', level=1
+                s, 'anthronote', 'note[@type="anthropology"]/form[@lang="en"]/text', level=2, letter=letter
             )
             tex += simplefield2tex(
-                entry, 'litmean', 'field[@type="literal-meaning"]/form[@lang="en"]/text', level=1, letter=letter
+                s, 'semnote', 'note[@type="semantics"]/form[@lang="en"]/text', level=2, letter=letter
             )
             tex += simplefield2tex(
-                entry, 'pronnote', 'pronunciation/form/text', level=1
+                s, 'grammarnote', 'note[@type="grammar"]/form[@lang="en"]/text', level=2, letter=letter
             )
-            if isvariant is False:
-                if get_first_pos(entry) in verb_pos:
-                    tex += senses2tex(entry, sense_pos=True, letter=letter)
-                else:
-                    tex += pos2tex(entry)
-                    tex += senses2tex(entry, sense_pos=False, letter=letter)
-            else:
-                s = entry.find('sense')
-                if s is not None:
-                    tex += simplefield2tex(
-                        s, 'scientificname', 'field[@type="scientific-name"]/form[@lang="en"]/text', level=2
-                    )
-                    tex += simplefield2tex(
-                        s, 'anthronote', 'note[@type="anthropology"]/form[@lang="en"]/text', level=2, letter=letter
-                    )
-                    tex += simplefield2tex(
-                        s, 'semnote', 'note[@type="semantics"]/form[@lang="en"]/text', level=2, letter=letter
-                    )
-                    tex += simplefield2tex(
-                        s, 'grammarnote', 'note[@type="grammar"]/form[@lang="en"]/text', level=2, letter=letter
-                    )
-                    tex += simplefield2tex(
-                        s, 'socionote', 'note[@type="sociolinguistics"]/form[@lang="en"]/text', level=2, letter=letter
-                    )
-                    tex += simplefield2tex(
-                        s, 'discoursenote', 'note[@type="discourse"]/form[@lang="en"]/text', level=2, letter=letter
-                    )
             tex += simplefield2tex(
-                entry, 'activemiddle', 'field[@type="activemiddle"]/form/text', level=1
+                s, 'socionote', 'note[@type="sociolinguistics"]/form[@lang="en"]/text', level=2, letter=letter
             )
-            tex += relforms2tex(entry, letter)
-            tex += complexformof2tex(entry, entry_lookup, valid_headwords, letter)
-            try:
-                for vartype in variantmap[entry.attrib['id']]:
-                    if vartype in ['irregthirdposs', 'irregfirstposs', 'irregpllab']:
-                        continue
-                    variants = [v.strip() for v in variantmap[entry.attrib['id']][vartype]]
-                    if len(variants) > 0:
-                        if len(variants) > 1 and vartype in ['freevarlab', 'dialectvarlab']:
-                            vartype += 's'
-                        linked_variants = [
-                            r'\hyperlink{' + sanitize_latex(v) + r'}{' + sanitize_latex(v) + r'}' if v in valid_headwords else sanitize_latex(v)
-                            for v in variants
-                        ]
-                        tex += '\n' + r'\variants{' + '\\' + vartype + r' \vartext{' + ', '.join(linked_variants) + r'}}'
-            except KeyError:
-                pass
-            tex += complexforms2tex(entry, complex_map, entry_lookup, valid_headwords, letter)
-    tex += r'}'
+            tex += simplefield2tex(
+                s, 'discoursenote', 'note[@type="discourse"]/form[@lang="en"]/text', level=2, letter=letter
+            )
+    tex += simplefield2tex(
+        entry, 'activemiddle', 'field[@type="activemiddle"]/form/text', level=1
+    )
+    tex += relforms2tex(entry, letter)
+    tex += complexformof2tex(entry, entry_lookup, valid_headwords, letter)
+    try:
+        for vartype in variantmap[entry.attrib['id']]:
+            if vartype in ['irregthirdposs', 'irregfirstposs', 'irregpllab']:
+                continue
+            variants = [v.strip() for v in variantmap[entry.attrib['id']][vartype]]
+            if len(variants) > 0:
+                if len(variants) > 1 and vartype in ['freevarlab', 'dialectvarlab']:
+                    vartype += 's'
+                linked_variants = [
+                    r'\hyperlink{' + sanitize_latex(v) + r'}{' + sanitize_latex(v) + r'}' if v in valid_headwords else sanitize_latex(v)
+                    for v in variants
+                ]
+                tex += '\n' + r'\variants{' + '\\' + vartype + r' \vartext{' + ', '.join(linked_variants) + r'}}'
+    except KeyError:
+        pass
+    tex += complexforms2tex(entry, complex_map, entry_lookup, valid_headwords, letter)
+    tex += r'}'  # Ensure entry is always closed
     try:
         return ({
             'firstletter': letter,
@@ -656,10 +666,14 @@ def entry2dict_acad(entry, variantmap, mainwdmap, irreg_pl_map, impf_rt_map, com
             'tex': tex
         }, None)
     except Exception as e:
+        print(f"Error processing entry with id '{entry.attrib.get('id', 'unknown')}': {e}")
         return ({'firstletter': '', 'headword': '', 'sortword': '', 'tex': ''}, e)
 
 def reventry2dict_acad(rev, e, entry_lookup):
     '''Return contents of reversal entry as a dict with useful values for academic dictionary.'''
+    if not rev:
+        print(f"Warning: Skipping reversal entry with empty headword")
+        return None
     tex = '\n' + r'\entry{' + sanitize_latex(rev) + r'}{'
     tex += r'\headword{' + sanitize_latex(rev) + r'}'
     rev_clean = rev.strip().replace(r'\sci ', '').replace(r'\sp ', '')
@@ -683,6 +697,9 @@ def reventry2dict_acad(rev, e, entry_lookup):
                     print(f"Warning: No entry found for entry ID '{entry_id}' in reversal '{rev}'")
                     continue
                 headword = get_headword(entry)
+                if not headword:
+                    print(f"Warning: Invalid headword for entry ID '{entry_id}' in reversal '{rev}'")
+                    continue
                 sanitized_headword = sanitize_latex(headword)
                 headwords.append(r'\gloss{\hyperlink{' + sanitized_headword + r'}{' + sanitized_headword + r'}}')
             except Exception as e:
@@ -702,4 +719,5 @@ def reventry2dict_acad(rev, e, entry_lookup):
             'tex': tex
         }, None)
     except Exception as e:
+        print(f"Error in reversal entry for '{rev}': {e}")
         return ({'firstletter': '', 'headword': '', 'sortword': '', 'tex': ''}, e)
