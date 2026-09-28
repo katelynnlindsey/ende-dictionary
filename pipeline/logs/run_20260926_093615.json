@@ -1,0 +1,41 @@
+{
+  "run_timestamp": "20260926_093615",
+  "started": "2026-09-26T09:36:15.884799",
+  "finished": "2026-09-26T09:36:16.496177",
+  "duration_seconds": 0.611378,
+  "input_lift_file": "/Users/kate/Documents/GitHub/ende-dictionary/configured-dictionary/20250803/ende.lift",
+  "header_file": "/Users/kate/Documents/GitHub/ende-dictionary/configured-dictionary/20250803/head.txt",
+  "parse_stats": {
+    "total_raw_entries": 5508,
+    "kept_entries": 5472,
+    "excluded_or_suffix": 36,
+    "total_senses": 5555,
+    "total_examples": 6707,
+    "reversal_entries": 2535,
+    "warning_count": 4,
+    "parse_seconds": 0.52
+  },
+  "warnings": [
+    "Entry 'mag': could not find referenced entry 4ab33d2f-f424-4ef0-9a4a-f5fa79e9850d",
+    "Entry 'dan': could not find referenced entry ae671ce1-8236-4c66-a54b-3eaad0891528",
+    "Entry 'daballe': could not find referenced entry ae671ce1-8236-4c66-a54b-3eaad0891528",
+    "Entry 'dem': could not find referenced entry 9aec8504-ed21-41a3-99b2-e5e59b52531e"
+  ],
+  "outputs": {
+    "latex": "/Users/kate/Documents/GitHub/ende-dictionary/pipeline/output/latex/dictionary_ende.tex",
+    "entries": "/Users/kate/Documents/GitHub/ende-dictionary/pipeline/output/dictionaria/entries.csv",
+    "senses": "/Users/kate/Documents/GitHub/ende-dictionary/pipeline/output/dictionaria/senses.csv",
+    "examples": "/Users/kate/Documents/GitHub/ende-dictionary/pipeline/output/dictionaria/examples.csv",
+    "entries_variants": "/Users/kate/Documents/GitHub/ende-dictionary/pipeline/output/dictionaria/entries_variants.csv",
+    "entries_complex_forms": "/Users/kate/Documents/GitHub/ende-dictionary/pipeline/output/dictionaria/entries_complex_forms.csv",
+    "senses_relations": "/Users/kate/Documents/GitHub/ende-dictionary/pipeline/output/dictionaria/senses_relations.csv"
+  },
+  "dictionaria_row_counts": {
+    "entries": 5472,
+    "senses": 5555,
+    "examples": 2612,
+    "entries_variants": 875,
+    "entries_complex_forms": 836,
+    "senses_relations": 3693
+  }
+}

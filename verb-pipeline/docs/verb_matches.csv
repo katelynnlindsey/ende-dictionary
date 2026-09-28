@@ -1,0 +1,525 @@
+ID,Root-End,Root-Eng,flex_match,status
+1,ngonoe,ask,ngonoe,exact
+2,nane,drink,nane,exact
+3,lel,fear,lel,exact
+4,wangam,forget,wangam,exact
+5,dändär,hear,dändär,exact
+6,wanseg,leave alone,wanseg,exact
+7,ony,carry sthg heavy,ony,exact
+8,nängttäg,come,nängttäg,exact
+9,bandra,sing,bandra,exact
+10,dadäräb,write,dadäräb,exact
+11,dämoe,push,dämoe,exact
+12,dämoe,send here,dämoe,exact
+13,dämoe,send there,dämoe,exact
+14,molle dändär,smell,molle dändär,exact
+15,irängän,come out,irängän,exact
+16,llätt,stop,llätt,exact
+17,zan,enter,zan,exact
+18,gazen,exit,gazen,exact
+19,inu,sleep,inu,exact
+20,ddäddäg,bite,ddäddäg,exact
+21,papa,hit,papa,exact
+22,wabeb,smash/belt,wabeb,exact
+23,gonagone,cook/burn,gonagone,exact
+24,ugug,make mumu,ugug,exact
+25,otät,eat,otät,exact
+26,llollom,break (pot),llollom,exact
+27,ttäkam,break (pencil),ttäkam,exact
+28,koko,cut (meat),koko,exact
+29,yagyeg,look for,yagyeg,exact
+30,molle dungg,smell (on purpose),molle dungg,exact
+31,nyongkoe,pull,nyongkoe,exact
+32,gämäll,steal,gämäll,exact
+33,dindu,run,dindu,exact
+34,gllanglla,swim,gllangglla,exact
+35,pape,crush,pape,exact
+38,ngangleb,seek,ngangleb,exact
+44,koenmäll,chase,koenmäll,exact
+48,waswes,beg,waswes,exact
+49,ttongg,give one or two,ttongg,exact
+50,säse,give three or more,,fuzzy_rejected_no_gloss_overlap
+51,indurgoeg,yell,indurgoeg,exact
+52,pänyik,whisper,pänyik,exact
+53,poper ingkoeg,scare,poper ingkoeg,exact
+54,arle,squeal,arle,exact
+55,olle,call over,olle,exact
+56,gädagäde,beat sago,gädagäde,exact
+57,ibi,go,ibi,exact
+59,uk,shout,uk,exact
+60,otal,perch,otal,exact
+61,itrel,get sick,itrell,fuzzy_plausible_needs_confirmation
+62,pänggmeny,protect,pänggmeny,exact
+63,zämae,pour,zämae,exact
+64,kollmäll,follow,kollmäll,exact
+65,gäz,kill,gäz,exact
+66,mändmänd,raise,mändmänd,exact
+67,mänddmändd,drown,mänddmändd,exact
+68,gäbaeb,jump somewhere,gäbaeb,exact
+69,kädaeb,break (bread),kädab,fuzzy_plausible_needs_confirmation
+70,gämoe,miss,gämoe,exact
+71,ngänglläb,get,ngällbän,exact
+72,gogo,build,gogo,exact
+73,bällabälle,find,bällabälle,exact
+75,ddänggaddängge,crucify,ddänggaddängge,exact
+76,ttaem,call,ttaem,exact
+77,pänae,turn back,pänae,exact
+78,pallängkmeny,divide,pallängkmeny,exact
+79,dumdum,surround,dumdum,exact
+80,kängkäl,ascend there,kängkäl,exact
+81,ngämingg,help,ngämingg,exact
+82,gänggälläm,wash,gänggälläm,exact
+84,pädoe,blow (fire),pädoe,exact
+85,ngänaem,understand,ngänam,exact
+86,pättapätte,shake (dust),pättapätte,exact
+87,nyanyem,respect,nyanyem,exact
+88,wanwen,shake (head),wanwen,exact
+89,panypeny,discuss,panypeny,exact
+90,källttakälltte,cast away,källttakälltte,exact
+91,ngasnges,make/do,ngasnges,exact
+92,täräp,cut,täräp,exact
+93,kälkäl,accuse,kälkäl,exact
+94,pumi,become tired,pumi,exact
+95,ttamän,finish,ttamän,exact
+96,mokon,anoint,mokon,exact
+97,tameny,teach,tameny,exact
+98,indugoeg,command,indugoeg,exact
+99,lläntäg,tell,lläntäg,exact
+100,särämbae,prepare,särämbae,exact
+101,yirngän,save,irängän,exact
+102,tämbameny,instruct,tämbameny,exact
+103,amtet,breathe,amtet,exact
+104,arle,scream,arle,exact
+105,bälämbäl,miss/remember,bälämbäl,exact
+106,ballbell,cook improperly,ballbell,exact
+107,bällgab,open,bällgab,exact
+108,pllättän,start walking,pällttän,fuzzy_plausible_needs_confirmation
+109,baddbedd,dry up,baddbedd,exact
+110,bodo,fill,bodo,exact
+111,"däbäll
+däbäll
+däbäll",touch,däbäll,exact
+112,dagal,board,dagal,exact
+113,dämen,sit down,dämen,exact
+114,dangkam,lean,dangkam,exact
+115,ddaebän,divorce,ddaebän,exact
+116,ddänddäm,drown2,ddänddäm,exact
+117,duab,blow down,duab,exact
+118,ikop,look,ikop,exact
+120,gllae,paddle,gllae,exact
+121,pllättän,start walking here,pällttän,fuzzy_plausible_needs_confirmation
+123,ibi,go2,ibi,exact
+124,kängkäl,ascend here,kängkäl,exact
+125,gäbän,jump in place,gäbän,exact
+126,gäbänmäll,jump in place many times,,fuzzy_rejected_no_gloss_overlap
+127,gäbaebmäll,jump somewhere multiple times,,fuzzy_rejected_no_gloss_overlap
+128,kängkäl,ascend sthg,kängkäl,exact
+129,ddänmäll,struggle,ddänmäll,exact
+130,dämenangg,seat,dämenangg,exact
+131,zigae,wrap in leaves,zigae,exact
+133,mändmänd,feed,mändmänd,exact
+134,taempäg,show one,taempäg,exact
+135,taempmeny,show many,,no_match
+136,gädän,land2,gädän,exact
+137,ttamän,finish (int),ttamän,exact
+138,ngäs,return,ngäs,exact
+139,druwem,knock,druwem,exact
+140,ittɨtt,catch,ittɨtt,exact
+141,ibeny,plant,ibeny,exact
+142,llɨtɨt,sing/tell,llɨtɨt,exact
+144,ttällam,pass,ttällam,exact
+145,gugi,stand,gugi,exact
+146,ittall,hang (from rope),ittall,exact
+147,ittall,follow after,ittall,exact
+148,kollwany,hang (on branch),kollwany,exact
+149,blab,mature,blab,exact
+150,bädab,dawn/shine,bädab,exact
+151,bäbälläd,drop badly,bäbälläd,exact
+152,kaekep,chew,kaekep,exact
+153,bebe,leak,bebe,exact
+154,bendoe,confuse,bendoe,exact
+155,bir,roast,bir,exact
+156,mbllag,find s.o. lost,,no_match
+157,mäkamäke,use,mäkamäke,exact
+158,wowo,push through,wowo,exact
+159,bänamb,open2,bänamb,exact
+160,däradära?,decorate,däradära,exact
+161,dädik,bump,dädik,exact
+162,kakal,enter2,kakal,exact
+163,mamon,string,mamon,exact
+164,dadäräd,clear,dadäräd,exact
+165,binzeg,warm,binzeg,exact
+166,udab,lose,udab,exact
+167,ddogoll,put together,ddogoll,exact
+168,inttemongg,let go,inttemongg,exact
+169,ddällombog,miss (step),ddällombog,exact
+170,ddänddäm,worry,ddänddäm,exact
+171,ddangoe,force,ddangoe,exact
+172,penongg,ignite,penongg,exact
+173,dodro,clean,dodro,exact
+174,ttoengg,scatter,ttoengg,exact
+175,tomon,wait,tomon,exact
+176,truwamängg,lay down,torwamängg,exact
+177,imonz,touch2,imonz,exact
+178,ttäkoe,chop,ttäkoe,exact
+179,erängg,taste,erängg,exact
+180,erongg,start weaving,erongg,exact
+181,erany,scream2,erany,exact
+182,erär,measure,erär,exact
+183,ergod,crawl,ergod,exact
+184,konakone,cover,konakone,exact
+185,tänggag,strengthen,tänggag,exact
+186,gany,plant2,gany,exact
+187,sipel,rest,sipel,exact
+188,gabän,cut in half,gabän,exact
+189,gägabäll,stand2,gägabäll,exact
+190,gäbäll,skip,gäbän,exact
+191,gäddgädd,fight,gäddgädd,exact
+192,tɨt,dig a canoe,tɨt,exact
+193,tungg,support,tungg,exact
+194,gallab,open3,gallab,exact
+195,tɨram,open4,tɨram,exact
+196,ttapeyam,open5,ttapeyam,exact
+197,pallam,cut open,pallam,exact
+198,kän,take out,kän,exact
+199,bänamb,open6,bänamb,exact
+200,ttalam,split,ttalam,exact
+201,zizi,uncover,zizi,exact
+202,dalab,open7,dalab,exact
+203,ddogoll,stick,ddogoll,exact
+204,giddoll,live,giddoll,exact
+205,irängän,lift out,irängän,exact
+206,iräre,stick out,,no_match
+207,beyambäg,chase after,beyambäg,exact
+208,täbatäbe,plan,täbatäbe,exact
+209,pänddäg,hatch,pänddäg,exact
+210,kämbäg,dive,kämbäg,exact
+211,paengg,guess,paengg,exact
+212,kokllo,scratch,kokllo,exact
+213,kllaklle,scrape,kɨllakɨlle,fuzzy_plausible_needs_confirmation
+214,kokop,peel,kokop,exact
+215,papälläk,split2,papälläk,exact
+216,nyäny,paint,nyäny,exact
+217,bänybäny,cut2,bänybäny,exact
+218,plengg,die2,plengg,exact
+219,mälamäle,patch,mälamäle,exact
+220,wanwen,shake head,wanwen,exact
+221,daudau,nod,daudau,exact
+222,koen,steer,koen,exact
+223,gonangg,cook,gonangg,exact
+224,llan gonggo,listen intently,llan gonggo,exact
+225,inggoemeny,make jokes,inggoemeny,exact
+226,zan,put in,zan,exact
+227,gazen,take out2,gazen,exact
+228,pisam,tear,pisam,exact
+229,ngänyngäny,swallow,ngänyngäny,exact
+230,inggol (inggoe),move close,,no_match
+231,källa kätam,flip tail,kätam,exact
+232,pänaengg,move opposite,pänaengg,exact
+233,ngänttäg,arrive,ngänttäg,exact
+234,nyängoe,walk slowly,nyängoe,exact
+235,nyärab,go up the mountain,nyärab,exact
+236,nganzig,overtake,nganzig,exact
+237,llanded,make clear,llanded,exact
+238,somungg,realize,somungg,exact
+239,gambäg,stand closely,gambäg,exact
+240,ngonongg,think,ngonongg,exact
+241,inggol (inggoi),go a little bit,,no_match
+242,gongg,disturb bees,gongg,exact
+243,gungg,marry a widow,gungg,exact
+244,penongg,burn,penongg,exact
+245,penangg,set on fire,penangg,exact
+246,zanggae,be showy,zanggae,exact
+247,ballɨngg,welcome,ballɨngg,exact
+248,ngarängg,meet s.o.,ngarängg,exact
+249,kallkäll gllaemeny,warm oneself,kallkäll gllaengg,fuzzy_plausible_needs_confirmation
+250,kämongg,get from s.o.,kämongg,exact
+252,poloengg,insult,poloengg,exact
+253,gängglläd,shove,gängglläd,exact
+254,peraingg,cross paths,peraingg,exact
+255,känz,go off road,känz,exact
+256,kam,start,kam,exact
+257,kam,start sthg,kam,exact
+258,kam,cut skin or meat,kam,exact
+259,yämbäg,deny,yämbäg,exact
+260,bombllo,increase/add,bombllo,exact
+261,ballɨngg,predict,ballɨngg,exact
+262,benmäll,shine/flash,benmäll,exact
+263,kambäg,escape from danger,kambäg,exact
+264,ttämattäme,be crowded,ttämattäme,exact
+265,tämbag,add/join,tämbag,exact
+266,inttoemängg,see off,inttoemängg,exact
+267,ttokoemeny,push forward,,no_match
+269,bengae,cover2,bengae,exact
+270,ttamttem,be confused,ttamttem,exact
+271,menttlog,agree,menttlog,exact
+272,trangg,quiet,tärangg,exact
+273,bällma ontog,spit,bällma ontog,exact
+274,täli,repeat,täli,exact
+275,ttängkag,break4,ttängkag,exact
+276,ttängkɨg,retort,,fuzzy_rejected_no_gloss_overlap
+277,ttalängg,ready to shoot,ttalängg,exact
+278,inttemängg,leave on the way,inttemängg,exact
+279,wändɨg,crowd,wändäg,exact
+280,aoao,chase away,aoao,exact
+281,aräre,scream3,aräre,exact
+282,bämblläd,expand,bämblläd,exact
+284,damong,comfort,damong,exact
+286,ddällgoe,bush hike,ddällgoe,exact
+287,gameny,become cloudy,gameny,exact
+288,gäglib,chase towards,gäglib,exact
+289,gllaglle,skin,gllaglle,exact
+290,gulag,accompany,gulag,exact
+291,i,weave,i,exact
+292,ikopse,pray,ikopse,exact
+293,imam,leave behind,imam,exact
+294,indrang,show,indrang,exact
+295,ngällae,look for2,ngällae,exact
+296,,rise up,ingellab,exact
+297,ingong,dance,ingong,exact
+298,käba,hunt,käba,exact
+299,kädkäd,debark,kädkäd,exact
+301,källkäll,dig,källkäll,exact
+302,källmakällme,survive,källmakällme,exact
+303,kängkäm,squeeze,kängkäm,exact
+304,kamän,strike off,kamän,exact
+306,kätaem,splash w/tail,kätam,fuzzy_plausible_needs_confirmation
+307,kili,praise,kili,exact
+308,kili,greet,kili,exact
+309,kilimeny,insult2,kilimeny,exact
+310,kɨk,squeeze2,kɨk,exact
+311,kllaklle,poison,,fuzzy_rejected_no_gloss_overlap
+312,kokto,bail,kokto,exact
+313,kollam,erect,kollam,exact
+314,kunen,wake up,kunen,exact
+315,eka laelem (laemnen),argue,laem,exact
+316,läpon,doubt,läpon,exact
+317,liglig,have sex,liglig,exact
+318,lugoe,drag,lugoe,exact
+319,ikop,see coming towards,ikop,exact
+320,amamärang,echo,amamärang,exact
+321,ngäs,return here,ngäs,exact
+322,gäz,kill-bring,gäz,exact
+323,tram,escort,täram,exact
+324,tram,escort here,täram,exact
+325,ngällbän,get-bring,ngällbän,exact
+326,kanyekanye,stroll,kanyekanye,exact
+327,llädäd,grab,llädäd,exact
+328,llakek,collapse,llakek,exact
+329,llattnen,get worse,llätt,exact
+331,malam,obey,malam,exact
+332,mällamälle,tie,mällamälla,exact
+333,mällkam,hang head,mällkam,exact
+334,mälmäl,squeeze3,mälmäl,exact
+335,mame,rain,Mame,exact
+336,maenen (mamoe),hunt2,,no_match
+337,mängall,struggle2,mängall,exact
+338,mättmätt,put on,mättmätt,exact
+340,mermer,shrink,mermer,exact
+341,mipdab,accommodate,mipdab,exact
+342,mitmit,miss2,mitmit,exact
+344,mokmok,wipe,mokmok,exact
+345,moko,like,moko,exact
+346,pindäg,push2,pendäg,exact
+347,plenz,shock,plenz,exact
+348,eka mu,reply,eka mu,exact
+349,nanserbe,prepare2,,no_match
+350,ttang ttaempäg,shake hands,ttaempäg,exact
+351,inu dämbaemeny,doze off,dämbaemeny,exact
+352,ddänddäl,climb2,ddänddäl,exact
+353,dangg,burn2,dangg,exact
+354,dongkal,stop2,dongkal,exact
+355,ngɨdngɨd,fold,,no_match
+356,ngal,waddle,ngal,exact
+357,ngängälam,buzz,ngänglam,fuzzy_plausible_needs_confirmation
+359,ngon,strut,ngon,exact
+360,ngongop,hug,ngongop,exact
+361,ttängkamäll,meet,ttängkamäll,exact
+362,nyägae,flail,nyägae,exact
+363,pämpllät,get healthy/big,pämpllätt,fuzzy_plausible_needs_confirmation
+365,ngange,take message,ngange,exact
+366,pungg,get worse2,pungg,exact
+367,gagäll abal,spoil,,no_match
+368,näk,hiccup,näk,exact
+369,nyäroe,creep,nyäroe,exact
+370,ngämen,reach s.o.,ngämen,exact
+371,llandräg,listen,llandräg,exact
+372,ume ddäddäl,kiss,ume ddäddäl,exact
+373,umaem,gather,umaem,exact
+374,ukeuke,claim,ukeuke,exact
+375,wudaude,light fire,udaude,fuzzy_plausible_needs_confirmation
+376,orwa,suffer,orwa,exact
+377,tɨtɨrɨk,untie,täträk,exact
+378,peyam,come out2,peyam,exact
+379,pänae,translate,pänae,exact
+380,ingong,dance2,ingong,exact
+381,ibae,dig with nose,ibae,exact
+382,itrae,hang2,itrae,exact
+383,käba,hunt alone,käba,exact
+384,kapu,carry,kapu,exact
+385,kättkätt,wall,kättkätt,exact
+386,ketrop,stop the rain,ketrop,exact
+387,nganae,coil,nganae,exact
+388,kongkottom,gulp,kongkottom,exact
+389,pänyanz,grow,pänyanz,exact
+390,lläpän,dig2,lläpän,exact
+391,llätät,remove stone,llatat,exact
+392,ttatta,chop2,ttatta,exact
+393,lluwam,unable,lluwam,exact
+394,ddällbän,uproot,ddällbän,exact
+395,mämrem,growl,mämrem,exact
+396,ngänngän,swear,ngänngän,exact
+397,märal,curse,märal,exact
+398,mattgal,put in fire,mattgal,exact
+399,ngallmeny,advise,ngallmeny,exact
+400,ngänongg,worry2,ngänongg,exact
+401,ngänongg,remember,ngänongg,exact
+402,ngänaeka pollongg,burst in tears,ngänaeka pollongg,exact
+403,okok,erase,okok,exact
+404,opap,jump over,opap,exact
+405,pänyae,hop,pänyae,exact
+406,pipllug,fly2,pipllug,exact
+407,paplläg,fly,paplläg,exact
+408,pitkae,untie2,pitkae,exact
+409,pätpaẗ,dry,pätpät,exact
+410,perapera,sit on branch,perapera,exact
+411,pollpoll,bark,pollpoll,exact
+412,popo,sharpen,popo,exact
+413,met,sharpen2,met,exact
+414,sɨs,extinguish,sɨs,exact
+415,sae,close eye,sae,exact
+416,ttaengän,pull sucker,ttaengän,exact
+417,ttotto,collect,ttotto,exact
+418,sespen,boil,säspen,exact
+419,tamllängg,press,tamllängg,exact
+420,tätäräp,cut3,tätäräp,exact
+421,tatäräp,cut bush,tatäräp,exact
+422,gollaembäg,tip water,gollaembäg,exact
+423,togol,hide,togol,exact
+424,tongoe,laugh,tongoe,exact
+425,tätäräk,go underneath,tätäräk,exact
+426,ttängattänge,read,ttängattänge,exact
+427,tudi,fish,tudi,exact
+428,ngättangätta,cross,ngättangätta,exact
+429,odaode,light fire2,odaode,exact
+430,kanyam,bend,kanyam,exact
+431,wɨk,shout2,,no_match
+432,wällawälla,show off,wällawälla,exact
+433,baottbaott,walk aimlessly,baottbaott,exact
+434,papek,prevent,papek,exact
+435,waowaem,flow,waowaem,exact
+436,sariem,neglect,sariem,exact
+437,bollboll,open sago,bollboll,exact
+438,omom,sweep,omom,exact
+439,pedae,sweep2,pedae,exact
+440,käkllätt,weed roughly,käkllätt,exact
+441,gälbän,knock fruit,gälbän,exact
+442,tanträm,smash2,tanträm,exact
+443,ttaempäg,divorce2,ttaempäg,exact
+444,päp,draw,päp,exact
+445,po,mound,po,exact
+446,po,split3,po,exact
+447,llallem,finish weaving,llallem,exact
+448,pittpitt,sew,pittpitt,exact
+449,kul,mix,kul,exact
+450,gäglläb,weed big,gäglläb,exact
+451,käklläp,weed small,käklläp,exact
+452,dädäräb,cut grass/flowers,dädäräb,exact
+453,ttättälläg,tear2,ttättälläg,exact
+454,kälämpag,pad,kälämpag,exact
+455,inungoe,shake,inungoe,exact
+456,ngongo,smooth,ngongo,exact
+457,totrop,descale,totrop,exact
+458,mirmir,lick,mirmir,exact
+459,täratäre,dig out,täratäre,exact
+460,umllang,inform,umllang,exact
+461,tutu,knock fruit continuously,susu,exact
+462,inmoll,step over,inmoll,exact
+463,kalläntäg,split4,kalläntäg,exact
+464,tatäraem,make noise,tatäraem,exact
+465,modaeb,feel,modaeb,exact
+466,tabe,pad2,tabe,exact
+467,idab,dig out2,idab,exact
+468,idän,dig out3,idän,exact
+469,katrekatre,make shelf,katrekatre,exact
+470,tär,tie2,tär,exact
+471,mäkäp,knot,mäkäp,exact
+472,där,fulfill,där,exact
+473,,tie3,,no_match
+474,mälanzeg,tie4,mälanzeg,exact
+475,tok,wrap up,tok,exact
+476,kaen,wrap up2,kaen,exact
+477,menttäg,put on head or shoulder,menttäg,exact
+478,särämbae,fix,särämbae,exact
+479,dabän,knock leaf,dabän,exact
+480,dana,plant briefly,dana,exact
+481,dodo,crumble sago,dodo,exact
+482,nono,crumble,nono,exact
+483,yagäl,smooth2,yagäl,exact
+484,gagälläd,cut leaves,gagälläd,exact
+485,kakällät,split leaf,kakällät,exact
+486,tärpa,cook roughly,tärpa,exact
+487,wɨndwɨnd,cover pit,wɨndwɨnd,exact
+488,kälbae,burn feather,kälbae,exact
+489,supun,throw away,spun,exact
+490,ttällattälla,hit lightly,ttällattälla,exact
+491,gɨg,collect ants,gɨg,exact
+492,gɨngg,gang hit s.o.,gɨngg,exact
+493,llɨtɨn,select,llɨtɨn,exact
+494,däbae,drizzle,däbae,exact
+495,däbae,knock fruit continuously2,däbae,exact
+496,ddonddo,boast,ddonddo,exact
+497,inuinu,feel sleepy,inuinu,exact
+498,bib,break ground,bib,exact
+499,därmae,wipe out,därmae,exact
+500,tunen,bump2,tunen,exact
+501,inam,weigh,inam,exact
+502,kalltam,split5,kalltam,exact
+503,tämaem,chew2,,no_match
+504,ullull,cross over2,ullull,exact
+505,kättkätt,fence,kättkätt,exact
+506,pallkam,split7,pällkam,exact
+507,beräberäl,swing,beräberäl,exact
+508,ttänttäm,cook2,ttänttäm,exact
+509,täräpän,cut8,täräpän,exact
+510,llakllek,destroy,llakllek,exact
+511,gollab,pour2,gollab,exact
+512,zozo,rot,zozo,exact
+513,päddab,be cooked,päddab,exact
+514,pɨddab,grow2,päddab,exact
+515,pɨnypɨny,plant a lot,pɨnypɨny,exact
+516,pungg,first chop,pungg,exact
+517,ddungg,decapitate,ddungg,exact
+518,ddaddu,remove shoot,ddaddu,exact
+519,ddol,form bubbles,ddol,exact
+520,tep,produce sap,tep,exact
+521,tep,lie2,tep,exact
+522,pipi,shoot,pipi,exact
+523,gallwab,prune,gallwab,exact
+524,tulgoe,gossip,tulgoe,exact
+525,wandae,burn3,wandae,exact
+526,aräram,sand2,aräram,exact
+527,ikop täbaeb,care for,,fuzzy_rejected_no_gloss_overlap
+528,suwe ttätt,urinate,ttätt,exact
+529,suwe tɨngg,urinate on,suwe tɨngg,exact
+530,bengae,roof,bengae,exact
+531,gallgell,deleaf,gallgell,exact
+532,kallkell,deleaf2,kallkell,exact
+533,ttatt gallgell,scream4,gall,exact
+534,malam,accept,malam,exact
+535,ibi,come2,ibi,exact
+536,zämängg,be in heaps,zämängg,exact
+537,klloe,gather2,,no_match
+538,bändaeg,stay up all night,bändaeg,exact
+539,ellollo,put down load and rest,ellollo,exact
+540,kolldän,stab/shoot,kolldän,exact
+541,dedre,go down the valley,dedre,exact
+542,nyärab,come up the hill,nyärab,exact
+543,ttogottogo,become blunt,ttogottogo,exact
+544,ttam,mention,ttam,exact
+545,ngättangätta,occupy,ngättangätta,exact
+546,timän,release,timän,exact
+547,ngällngäll,mature2,ngällngäll,exact
+548,pirngän,take out3,pirngän,exact
+549,lläblläb,hide2,lläblläb,exact
+550,pättol,start singing,pättol,exact
